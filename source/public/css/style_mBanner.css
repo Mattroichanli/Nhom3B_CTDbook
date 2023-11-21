@@ -1,0 +1,31 @@
+/*main-banner_section*/
+.image_mb {
+    display: inline;
+    flex-direction: column;
+    width: 1197px;
+    height: 459px;
+}
+
+.image_mb .main_banner {
+    position:relative;
+    width: 100%;
+    height: 100%;
+    margin-top: 123px;
+}
+
+.image_mb .back {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    top: -340px;
+    opacity: 80%;
+}
+
+.image_mb .forward {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    top: -340px;
+    float: right;
+    opacity: 80%;
+}

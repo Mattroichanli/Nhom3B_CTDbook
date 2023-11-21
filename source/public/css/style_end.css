@@ -1,0 +1,97 @@
+/*end section*/
+.box_footer {
+    position: relative;
+    width: 100%;
+    height: 180px;
+}
+
+.box_footer .end {
+    position: absolute;
+    width: 1444px;
+    height: 460px;
+    bottom: 0;
+    left: 0;
+}
+
+.box_footer .line {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    bottom: 180px;
+    left: 0;
+}
+
+.box_footer .logo {
+    position: absolute;
+    width: 18%;
+    height: auto;
+    bottom: 2px;
+    left: 6px;
+}
+
+.box_footer .diachi {
+    position: absolute;
+    width: 338px;
+    bottom: 15px;
+    left: 300px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #5ea3ff;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.box_footer .text-wrapper {
+    position: absolute;
+    width: 389px;
+    bottom: 80px;
+    left: 750px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #5ea3ff;
+    font-size: 25px;
+    letter-spacing: 0;
+    line-height: normal;
+    text-decoration: underline;
+}
+
+.box_footer .img {
+    position: absolute;
+    width: 3px;
+    height: 180px;
+    bottom: 0;
+    left: 700px;
+}
+
+.box_footer .facebook {
+    position: absolute;
+    width: 80px;
+    height: 74px;
+    bottom: 20px;
+    left: 750px;
+}
+
+.box_footer .instagram {
+    position: absolute;
+    width: 80px;
+    height: 74px;
+    bottom: 20px;
+    left: 900px;
+}
+
+.box_footer .twitter-x {
+    position: absolute;
+    width: 80px;
+    height: 74px;
+    bottom: 20px;
+    left: 1050px;
+}
+
+.box_footer .you-tube {
+    position: absolute;
+    width: 80px;
+    height: 74px;
+    bottom: 20px;
+    left: 1200px;
+}

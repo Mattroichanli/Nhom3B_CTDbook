@@ -1,0 +1,134 @@
+.Sach
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.product
+{
+    background-color: white;
+    height: 590px;
+    width: 1197px;
+    padding: 12px;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 5px 5px 0px #9a9e9f;
+}
+.header2
+{
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 30px;
+    text-align: center;
+}
+.items
+{
+    display: flex;
+    justify-content: space-evenly;
+}
+.item
+{
+    height: 385px;
+    width: 220px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #9a9e9f;
+}
+.item .text
+{
+margin-top: 0px;
+}
+.item img
+{
+    height: 309px;
+    width: 220px;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
+.text li
+{
+    list-style-type: none;
+    padding-left: 0px;
+}
+.text .ten-sach
+{
+width: 220px;
+height: 22px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+
+padding-left: 10px;
+color: #000000;
+}
+.text .gia-tien
+{
+    width: 95px;
+height: 24px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 24px;
+
+padding-left: 10px;
+color: #D51C24;
+}
+.text .gia-goc
+{
+width: 76px;
+height: 19px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+text-align: center;
+text-decoration-line: line-through;
+
+padding-left: 10px;
+color: #7A7E7F;
+}
+.xemthem
+{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 20px;
+}
+.xemthem button
+{
+    width: 179px;
+    height: 41px;
+    border-radius: 10px;
+    border: solid #D51C24;
+    background-color: white;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #D51C24;
+}
+.banner-nxb
+{
+    position:relative;
+    width: 100%;
+    height: 100%;
+}
+
