@@ -1,0 +1,395 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+}
+div
+{
+    display: block;
+}
+a
+{
+    background: transparent;
+}
+button
+{
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: middle;
+    text-transform: none;
+    overflow: visible;
+}
+
+.Sach
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 150px;
+}
+.Sach_items
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+.product
+{
+    background-color: white;
+    height: 800px;
+    width: 1197px;
+    padding: 30px;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 5px 5px 0px #9a9e9f;    
+    font-family: "Inter-Medium", Helvetica;
+}
+
+.product_url
+{
+    height: 30px;
+    padding-left: 10px;
+}
+.url
+{
+    display: inline-block;
+}
+.url li
+{
+    list-style: none;
+    display: inline;
+}
+.url li a
+{
+    color: black;
+    text-decoration: none;
+    margin-right: 5px;
+    display: inline;
+}
+
+.show
+{
+    display: flex;
+    padding: 10px;
+    height: calc(100% - 50px);
+}
+.product_media
+{
+    width:  600px;
+    height: 100%;
+    margin-top: 10px;
+}
+.product_view
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.img_small
+{
+    width: 150px;
+    margin-right: 8px;
+}
+.items
+{
+    display: inline-block;
+    list-style: outside none none; 
+    padding: 0 !important;
+    width: 100%;
+}
+.items a
+{
+    display: flex;
+    margin: 5px 0 0 0;
+    transition: none;
+    overflow: hidden;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    width: 150px;
+    height: 140px;
+    align-items: center;
+}
+.items a:first-child
+{
+    margin: 0 !important;
+}
+.items a > img
+{
+    transition: transform 0.15s ease 0s;
+    transform: scale3d(1,1,1);
+    max-width: 100%;
+    max-height: 100%;
+}
+.img_big
+{
+    padding: 10px 0;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+}
+.img_big > img
+{
+    max-height: 800px;
+    max-width: 100%;
+    height: 78%;
+    width: 100%;
+}
+
+.add_or_buy
+{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.add_or_buy button:first-of-type
+{
+    margin-left: 0;
+    color:darkorchid;
+    font-size: 25px;
+    background: white;
+    border: 2px solid darkorchid;
+}
+.add_or_buy button
+{
+    cursor: pointer;
+    user-select: none;
+    height: 50px;
+    margin-left: 25px;
+    width: 250px;
+    font-weight: 700;
+    font-size: 1.1em;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 25px;
+    background: darkorchid;
+    border: none;
+}
+.add_or_buy > .add > span
+{
+    padding-left: 7px;
+}
+.cart_icon
+{
+    background-image: url(image/toolbar_section/Shopping-Cart.png);
+    background-size: cover;
+    height: 30px;
+    width: 27px;
+}
+
+.product_detail
+{
+    width: calc(100% - 600px);
+    margin-left: -10px;
+}
+.product_detail h1
+{
+    font-size: 32px;
+    font-weight: 500;
+    color: #333;
+    line-height: 1.5em;
+    overflow-wrap: break-word;
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+.gia 
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15px;
+}
+.gia .giagiam
+{
+    font-size: 40px;
+    line-height: 32px;
+    color: darkorchid;
+    font-family: 'Roboto',sans-serif !important;
+    font-weight: 700;
+}
+.gia .giagoc
+{
+    margin-left: 40px;
+    color: #0D0D0D;
+    font-size: 20px;
+    font-weight: 300;
+    text-decoration: line-through;
+}
+.gia .giam
+{
+    margin-left: 10px;
+    padding: 4px;
+    background-color: darkorchid;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#sl
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+#sl label
+{
+    font-size: 25px;
+    padding: 0 8px 0 0;
+    text-align: left;
+    max-width: 200px;
+    min-width: 150px;
+    padding-top: 5px;
+}
+#sl .sl_box
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: center;
+    border: 1px solid #c1c1c1;
+    border-radius: 4px;
+    height: 32px;
+}
+#sl .sl_box .sub
+{
+    padding: 8px 8px 0 16px;
+    cursor: pointer;
+    user-select: none;
+    height: 100%;
+    transition: all 0.3s;
+    text-align: center;
+    color: #646464;
+}
+#sl .sl_box .add
+{
+    padding: 8px 16px 0 8px;
+    cursor: pointer;
+    user-select: none;
+    height: 100%;
+    transition: all 0.3s;
+    text-align: center;
+    color: #646464;
+}
+#so
+{
+    border: none !important;
+    width: 3em !important;
+    color: #0D0E0F;
+    font-weight: 700;
+    font-size: 1.2em;
+    height: 100%;
+    text-align: center;
+}
+
+.ttsp
+{
+    margin: 50px 0;
+    font-size: 22px;
+}
+.ttsp span:first-child
+{
+    padding-right: 10px;
+}
+.ttsp span:nth-of-type(2)
+{
+    font-weight: 600;    
+}
+
+/* ---------------------------------------------------*/
+.title_sp
+{
+    font-size: 30px;
+    font-weight: 700;
+    margin: 20px;
+}
+.ct_ttsp
+{
+    overflow: hidden;
+    max-height: 690px;
+}
+.ct_ttsp .coban
+{
+    border-bottom: 1px solid #c1c1c1;
+    padding-left: 100px;
+}
+.ttcb
+{
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    margin: 10px 0;
+    empty-cells: show;
+    font-size: 100%;
+}
+tbody
+{
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+.ttcb tbody tr td
+{
+    font-size: 18px;
+    border: none;
+    padding: 4px;
+    display: table-cell;
+    line-height: 1.6;
+    text-align: left;
+    vertical-align: baseline;
+}
+.ttcb tbody tr td:first-child
+{
+    color: #777;
+}
+
+.ct_ttsp .chitiet
+{
+    line-height: 25px;
+    display: block !important;
+    margin-top: 20px;
+    font-size: 13px;
+    text-align: justify;
+}
+p
+{
+    margin-bottom: 10px;
+}
+.xemthem
+{
+    padding: 0 0 8px 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.xemthem #more
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: darkorchid;
+    background-color: #fff;
+    border: 2px solid darkorchid;
+    font-size: 14px;
+    font-weight: 700;
+    width: 210px;
+    max-width: 100%;
+    height: 40px;
+    max-height: 100%;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.5s;
+}
