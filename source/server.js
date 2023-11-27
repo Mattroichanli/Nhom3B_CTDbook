@@ -1,7 +1,8 @@
+const mongoose = require("mongoose")
 const express = require('express')
 const path = require('path')
 const webRoute = require('./route/web')
-
+const connect = require('./database/database')
 const app = express()
 const port = 3000
 
@@ -13,6 +14,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', webRoute)
 
-app.listen(port, () => {
-    console.log(`Server running at port: ${port}`);
-});
+connect().then( () => {
+    app.listen(port, () => {
+      console.log(`Server running at port: ${port}`);
+    });
+  }).catch((error) => {
+    console.error(error);
+  });
