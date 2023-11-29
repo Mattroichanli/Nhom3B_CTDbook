@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CTD book</title>
+    <link rel="shortcut icon" href="image/Logo.png" type="image/png" />
+    <link rel="stylesheet" href="/css/globals.css" />
+    <link rel="stylesheet" href="/css/style_end.css" />
+    <link rel="stylesheet" href="/css/style_toolbar.css" />
+    <link rel="stylesheet" href="/css/style_mBanner.css" />
+    <link rel="stylesheet" href="/css/style_product.css" />
+    <link rel="stylesheet" href="/css/hover_menu.css" />
+    <link rel="stylesheet" href="/css/form.css" />
+
+</head>
+<body>
+    scroll-padding-top: 123px;
+    <div class="desktop"><div class="div"></div></div>
+    <!-- toolbar -->
+    <div class="box">
+        <img src="image/Logo.png" alt="">
+        <button id="menu" style="background: url(image/toolbar_section/Category.png)"></button>
+        <input placeholder="  Tìm kiếm sản phẩm...">
+        <button id="search" style="background: url(image/toolbar_section/Search.png)"></button>
+
+        <div id="thong-bao">
+            <button style="background: url(image/toolbar_section/Notification.png)"></button>
+            <p>Thông báo</p>
+        </div>
+        <div id="gio-hang">
+            <button style="background: url(image/toolbar_section/Shopping-Cart.png)"></button>
+            <p>Giỏ hàng</p>
+        </div>
+        
+        <div class="dropdown" id="tai-khoan">
+            <a href="/login"> 
+                <div class="container">
+                    <div class="dropbtn" style="background: url(image/toolbar_section/Person.png) no-repeat"></div>
+                    <div class="accountTitle">Tài khoản</div>
+                </div>
+            </a>
+            <div class="dropdown-content">
+                <a href="/login">Đăng nhập</a>
+                <a href="/signup">Đăng ký</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- main banner -->
+    <div class="image_mb">
+        <img class="main_banner" src="/image/mBanner_section/MainBanner.png" alt="" />
+        <img class="main_banner" src="/image/mBanner_section/ms_banner_img2.png" alt="" />
+        <button class="back" onclick="plusDivs(-1)">
+            <img src="/image/mBanner_section/Back.png" width="50" height="50" alt="" />
+        </button>
+        <button class="forward" onclick="plusDivs(+1)">
+            <img src="/image/mBanner_section/Forward.png" width="50" height="50" alt="" />
+        </button>
+    </div>
+
+    <script>
+        var slideIndex = 1;
+        carousel();
+        //plusDivs: page transition manually with button
+        function plusDivs(n) {
+            slideIndex += n;
+            var i;
+            var x = document.getElementsByClassName("main_banner");
+            if (slideIndex > x.length) { slideIndex = 1 }
+            if (slideIndex < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+        //carousel: page transition automatic
+        function carousel() {
+            var i;
+            var slides = document.getElementsByClassName("main_banner");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(carousel, 3000); // Change image every 3 seconds
+        }
+    </script>
+
+    <!--  -->
+    <section>
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>SÁCH MỚI</h2>
+                </div>
+                <div class="items">
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi1.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Bố ngồi cùng con, nhé!</li>
+                            <li class="gia-tien">96.000 đ</li>
+                            <li class="gia-goc">120.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi2.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Qua đêm ở nhà các vua...</li>
+                            <li class="gia-tien">96.000 đ</li>
+                            <li class="gia-goc">120.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi3.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Quái vật băng</li>
+                            <li class="gia-tien">144.000 đ</li>
+                            <li class="gia-goc">180.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi4.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Bàn về lòng khoan dung</li>
+                            <li class="gia-tien">68.800 đ</li>
+                            <li class="gia-goc">86.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi5.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Nuôi dạy con không...</li>
+                            <li class="gia-tien">79.200 đ</li>
+                            <li class="gia-goc">99.000 đ</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="xemthem">
+                    <button id="xemthem">Xem thêm</button>
+                    <!-- //<script src="chuyenTrang()"></script> -->
+                </div>
+            </div>
+            <script>
+                function chuyenTrang() {
+                    //Thực hiện chuyển trang ở đây
+                    window.location.href = "sachmoi"; // Thay "ten-trang-moi.html" bằng đường dẫn đến trang mới của bạn
+                }
+
+                document.getElementById("xemthem").addEventListener("click", chuyenTrang);
+            </script>
+        </section>
+
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>SÁCH BÁN CHẠY</h2>
+                </div>
+                <div class="items">
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi1.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Bố ngồi cùng con, nhé!</li>
+                            <li class="gia-tien">96.000 đ</li>
+                            <li class="gia-goc">120.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi2.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Qua đêm ở nhà các vua...</li>
+                            <li class="gia-tien">96.000 đ</li>
+                            <li class="gia-goc">120.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi3.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Quái vật băng</li>
+                            <li class="gia-tien">144.000 đ</li>
+                            <li class="gia-goc">180.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi4.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Bàn về lòng khoan dung</li>
+                            <li class="gia-tien">68.800 đ</li>
+                            <li class="gia-goc">86.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi5.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Nuôi dạy con không...</li>
+                            <li class="gia-tien">79.200 đ</li>
+                            <li class="gia-goc">99.000 đ</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="xemthem">
+                    <button>Xem thêm</button>
+                </div>
+            </div>
+        </section>
+        <img class="banner-nxb" src="image/NXBkimdong.png" alt="">
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>NHÀ XUẤT BẢN KIM ĐỒNG</h2>
+                </div>
+                <div class="items">
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi1.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Bố ngồi cùng con, nhé!</li>
+                            <li class="gia-tien">96.000 đ</li>
+                            <li class="gia-goc">120.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi2.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Qua đêm ở nhà các vua...</li>
+                            <li class="gia-tien">96.000 đ</li>
+                            <li class="gia-goc">120.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi3.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Quái vật băng</li>
+                            <li class="gia-tien">144.000 đ</li>
+                            <li class="gia-goc">180.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi4.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Bàn về lòng khoan dung</li>
+                            <li class="gia-tien">68.800 đ</li>
+                            <li class="gia-goc">86.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi5.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Nuôi dạy con không...</li>
+                            <li class="gia-tien">79.200 đ</li>
+                            <li class="gia-goc">99.000 đ</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="xemthem">
+                    <button>Xem thêm</button>
+                </div>
+            </div>
+        </section>
+        <img class="banner-nxb" src="image/NXBnhanam.png" alt="">
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>NHÀ XUẤT BẢN NHÃ NAM</h2>
+                </div>
+                <div class="items">
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi1.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Bố ngồi cùng con, nhé!</li>
+                            <li class="gia-tien">96.000 đ</li>
+                            <li class="gia-goc">120.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi2.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Qua đêm ở nhà các vua...</li>
+                            <li class="gia-tien">96.000 đ</li>
+                            <li class="gia-goc">120.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi3.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Quái vật băng</li>
+                            <li class="gia-tien">144.000 đ</li>
+                            <li class="gia-goc">180.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi4.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Bàn về lòng khoan dung</li>
+                            <li class="gia-tien">68.800 đ</li>
+                            <li class="gia-goc">86.000 đ</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <img src="image/sachmoi/sachmoi5.jpg" alt="">
+                        <ul class="text">
+                            <li class="ten-sach">Nuôi dạy con không...</li>
+                            <li class="gia-tien">79.200 đ</li>
+                            <li class="gia-goc">99.000 đ</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="xemthem">
+                    <button>Xem thêm</button>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!--footer-->
+    <div class="box_footer">
+        <div class="end">
+            <img class="line" src="image/end_section/line-1.sgv" alt="" />
+            <img class="logo" src="image/Logo.png" alt="" />
+            <p class="diachi">
+                Duong Han Thuyen, khu pho 6, <br />Thu Duc, Thanh pho Ho Chi Minh<br />Hotline: 0123456789<br />ctdbook@gmail.comcom
+            </p>
+            <p class="text-wrapper">Kết nối mạng xã hội</p>
+            <img class="img" src="image/end_section/line-2.sgv" alt="" />
+            <img class="facebook" src="image/end_section/Facebook.png" alt="" />
+            <img class="instagram" src="image/end_section/Instagram.png" alt="" />
+            <img class="twitter-x" src="image/end_section/TwitterX.png" alt="" />
+            <img class="you-tube" src="image/end_section/YouTube.png" alt="" />
+        </div>
+    </div>
+</body>
+</html>
