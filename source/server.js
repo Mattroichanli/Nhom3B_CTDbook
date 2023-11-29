@@ -25,6 +25,10 @@ connect().then( () => {
     app.get('/createProduct', productRoute)
     app.get('/products',productRoute)
     app.get('/product/:name',productRoute)
+    app.get('/products/KimDong',productRoute)
+    app.get('/products/NhaNam',productRoute)
+    app.get('/products/sachmoi',productRoute)
+    
   }).catch((error) => {
     console.error(error);
   });
