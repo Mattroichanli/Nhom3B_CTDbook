@@ -106,7 +106,12 @@
     top: 31px;
     left: 1240px;
 }
-#tai-khoan button {
+
+.container {
+    width: auto;
+}
+
+.container div {
     position: fixed;
     width: 40px;
     height: 40px;
@@ -115,7 +120,7 @@
     border: none;
     float: left;
 }
-#tai-khoan p {
+.container .accountTitle {
     position: fixed;
     width: fit-content;
     font-family: "Inter-Medium", Helvetica;
