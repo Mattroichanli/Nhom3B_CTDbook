@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const uri = "mongodb+srv://nhom3b:nhom3b@cluster0.mlensdg.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://nhom3b:nhom3b@cluster0.mlensdg.mongodb.net/CTDbook?retryWrites=true&w=majority";
 
 async function connectToDatabase() {
     try {
@@ -10,5 +10,4 @@ async function connectToDatabase() {
       console.error('Failed to connect to Database:', err);
     }
   }
-  
 module.exports = connectToDatabase

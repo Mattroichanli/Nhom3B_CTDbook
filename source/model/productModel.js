@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema
 
-const productSchema = new mongoose.Schema(
+const ProductsSchema = new Schema(
   {
     tensach: {
       type: String,
@@ -8,7 +9,7 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     anhbia: {
-      type: Number,
+      type: String,
       trim: true,
       required: true,
     },
@@ -18,40 +19,34 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     tacgia: {
+      type: String, 
+      trim: true,
+      required: true,
+    },
+    dinhdang : {
       type: String,
       trim: true,
       required: true,
     },
-    dinhdang: {
-        type: String,
-        trim: true,
-        required: true,
+    mota: {
+      type: String,
+      trim: true,
+      required: true,
     },
     soluong: {
       type: Number,
-      default: 1,
-    },
-    mota: {
-        type: String,
-        trim: true,
-        required: true,
-    },
-    giagoc: {
-        type: Number,
-        default: 0,
+      required: true,
     },
     giatien: {
-        type: Number,
-        default: 0,
+      type: Number,
+      required: true,
     },
-    ngaythem: {
-        type: Date,
-        default: new Date('2023-01-01'),
-    }
+    giagoc: {
+      type: Number,
+      required: true,
+    },
   },
-  {
-    timestamps: true,
-  }
+  {timestamps: true}
 );
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("Products", ProductsSchema);
