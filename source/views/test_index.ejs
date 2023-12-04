@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<%- include("./partials/head.ejs") %>
+<body>
+    scroll-padding-top: 123px;
+    <div class="desktop"><div class="div"></div></div>
+    <!-- toolbar -->
+    <div class="box">
+        <img src="image/Logo.png" onclick="location.href='/main'" alt="">
+        <button id="menu" style="background: url(image/toolbar_section/Category.png)"></button>
+        <input placeholder="  Tìm kiếm sản phẩm...">
+        <button id="search" style="background: url(image/toolbar_section/Search.png)"></button>
+    
+        <div id="thong-bao">
+            <button style="background: url(image/toolbar_section/Notification.png)"></button>
+            <p>Thông báo</p>
+        </div>
+        <div id="gio-hang">
+            <button style="background: url(image/toolbar_section/Shopping-Cart.png)"></button>
+            <p>Giỏ hàng</p>
+        </div>
+        
+        <%if (kh != '') { %>
+            <div class="accountTitle"><%= kh %></div>
+        <% } else { %>
+        <div class="dropdown" id="tai-khoan">
+            <a href="/login">
+                <div class="container">
+                    <div class="dropbtn" style="background: url(image/toolbar_section/Person.png) no-repeat"></div>
+                    <div class="accountTitle">Tài khoản</div>
+                </div>
+            </a>
+            <div class="dropdown-content">
+                <a href="/login">Đăng nhập</a>
+                <a href="/signup">Đăng ký</a>
+            </div>
+        </div>
+        <% } %>
+    </div>
+
+    <!-- main banner -->
+    <div class="image_mb">
+        <img class="main_banner" src="/image/mBanner_section/MainBanner.png" alt="" />
+        <img class="main_banner" src="/image/mBanner_section/ms_banner_img2.png" alt="" />
+        <button class="back" onclick="plusDivs(-1)">
+            <img src="/image/mBanner_section/Back.png" width="50" height="50" alt="" />
+        </button>
+        <button class="forward" onclick="plusDivs(+1)">
+            <img src="/image/mBanner_section/Forward.png" width="50" height="50" alt="" />
+        </button>
+    </div>
+
+    <script>
+        var slideIndex = 1;
+        carousel();
+        //plusDivs: page transition manually with button
+        function plusDivs(n) {
+            slideIndex += n;
+            var i;
+            var x = document.getElementsByClassName("main_banner");
+            if (slideIndex > x.length) { slideIndex = 1 }
+            if (slideIndex < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+        //carousel: page transition automatic
+        function carousel() {
+            var i;
+            var slides = document.getElementsByClassName("main_banner");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(carousel, 3000); // Change image every 3 seconds
+        }
+    </script>
+
+    <!--  -->
+    <section>
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>SÁCH MỚI</h2>
+                </div>
+                <div class="items">
+                    <% if (sps.length > 0) { %>
+                        <% sps.forEach(sp => { %>
+                            <% if (sp.danhmuc === 'sachmoi') { %>
+                                <div class="item">
+                                    <img src=<%= sp.img_small2 %> onclick="location.href='/main/<%= sp.id %>'" alt="">
+                                    <ul class="text">
+                                        <li class="ten-sach" onclick="location.href='/main/<%= sp.id %>'"><%= sp.tensach %></li>
+                                        <li class="gia-tien"><%= sp.giagiam %></li>
+                                        <li class="gia-goc"><%= sp.giagoc %></li>
+                                    </ul>
+                                </div>
+                            <% } %>
+                        <% }) %>    
+                    <% } %>
+                </div>
+                <div class="xemthem">
+                    <button id="xemthem">Xem thêm</button>
+                    <!-- //<script src="chuyenTrang()"></script> -->
+                </div>
+            </div>
+            <script>
+                function chuyenTrang() {
+                    //Thực hiện chuyển trang ở đây
+                    window.location.href = "sachmoi"; // Thay "ten-trang-moi.html" bằng đường dẫn đến trang mới của bạn
+                }
+
+                document.getElementById("xemthem").addEventListener("click", chuyenTrang);
+            </script>
+        </section>
+
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>SÁCH BÁN CHẠY</h2>
+                </div>
+                <div class="items">
+                    <% if (sps.length > 0) { %>
+                        <% sps.forEach(sp => { %>
+                            <% if (sp.danhmuc === 'sachbanchay') { %>
+                                <div class="item">
+                                    <img src=<%= sp.img_small2 %> onclick="location.href='/main/<%= sp.id %>'" alt="">
+                                    <ul class="text">
+                                        <li class="ten-sach" onclick="location.href='/main/<%= sp.id %>'"><%= sp.tensach %></li>
+                                        <li class="gia-tien"><%= sp.giagiam %></li>
+                                        <li class="gia-goc"><%= sp.giagoc %></li>
+                                    </ul>
+                                </div>
+                            <% } %>
+                        <% }) %>    
+                    <% } %>
+                </div>
+                <div class="xemthem">
+                    <button>Xem thêm</button>
+                </div>
+            </div>
+        </section>
+        <img class="banner-nxb" src="image/NXBkimdong.png" alt="">
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>NHÀ XUẤT BẢN PHỤ NỮ</h2>
+                </div>
+                <div class="items">
+                    <% if (sps.length > 0) { %>
+                        <% sps.forEach(sp => { %>
+                            <% if (sp.nxb === 'Phụ Nữ') { %>
+                                <div class="item">
+                                    <img src=<%= sp.img_small2 %> onclick="location.href='/main/<%= sp.id %>'" alt="">
+                                    <ul class="text">
+                                        <li class="ten-sach" onclick="location.href='/main/<%= sp.id %>'"><%= sp.tensach %></li>
+                                        <li class="gia-tien"><%= sp.giagiam %></li>
+                                        <li class="gia-goc"><%= sp.giagoc %></li>
+                                    </ul>
+                                </div>
+                            <% } %>
+                        <% }) %>    
+                    <% } %>
+                </div>
+                <div class="xemthem">
+                    <button>Xem thêm</button>
+                </div>
+            </div>
+        </section>
+        <img class="banner-nxb" src="image/NXBnhanam.png" alt="">
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>SÁCH NGOẠI VĂN</h2>
+                </div>
+                <div class="items">
+                    <% if (sps.length > 0) { %>
+                        <% sps.forEach(sp => { %>
+                            <% if (sp.nxb === 'Thế giới') { %>
+                                <div class="item">
+                                    <img src=<%= sp.img_small2 %> onclick="location.href='/main/<%= sp.id %>'" alt="">
+                                    <ul class="text">
+                                        <li class="ten-sach" onclick="location.href='/main/<%= sp.id %>'"><%= sp.tensach %></li>
+                                        <li class="gia-tien"><%= sp.giagiam %></li>
+                                        <li class="gia-goc"><%= sp.giagoc %></li>
+                                    </ul>
+                                </div>
+                            <% } %>
+                        <% }) %>    
+                    <% } %>
+                </div>
+                <div class="xemthem">
+                    <button>Xem thêm</button>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!--footer-->
+    <%- include("./partials/footer.ejs") %>
+</body>
+</html>

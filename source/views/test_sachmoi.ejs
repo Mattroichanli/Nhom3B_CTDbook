@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <%- include("./partials/head.ejs") %>
+    <link rel="stylesheet" href="css/style_sachmoi.css" />
+    <body>
+        scroll-padding-top: 123px;
+        <div class="desktop"><div class="div"></div></div>
+        <!-- toolbar -->
+        <%- include("./partials/toolbar.ejs") %>
+        
+        <section>
+            <section class="Sach">
+                <div class="product">
+                    <div class="header2">
+                        <h2>SÁCH MỚI</h2>
+                        <div id="sortBy">
+                            <p>Sắp xếp theo:</p>
+                            <select id="optionSort">
+                                <option>Mới nhất</option>
+                                <option>Cũ nhất</option>
+                                <option>Giá tăng dần</option>
+                                <option>Giá giảm dần</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="line"></div>
+                    <div class="items">
+                        <% if (spmois.length > 0) { %>
+                            <% spmois.forEach(spmoi => { %>
+                                <div class="item">
+                                    <img src=<%= spmoi.img_small2 %> onclick="location.href='/main/<%= spmoi.id %> alt="">
+                                    <ul class="text">
+                                        <li class="ten-sach" onclick="location.href='/main/<%= spmoi.id %>'"><%= spmoi.tensach %></li>
+                                        <li class="gia-tien"><%= spmoi.giagiam %></li>
+                                        <li class="gia-goc"><%= spmoi.giagoc %></li>
+                                    </ul>
+                                </div>
+                            <% }) %>    
+                        <% } %>
+                       
+                    </div>
+
+                    
+                </div>
+            </section>
+        </section>
+        <!--footer-->
+        <div class="box_footer">
+            <div class="end">
+                <img class="line" src="image/end_section/line-1.sgv" alt=""/>
+                <img class="logo" src="image/Logo.png" alt=""/>
+                <p class="diachi">
+                    Duong Han Thuyen, khu pho 6, <br />Thu Duc, Thanh pho Ho Chi Minh<br />Hotline: 0123456789<br />ctdbook@gmail.comcom
+                </p>
+                <p class="text-wrapper">Kết nối mạng xã hội</p>
+                <img class="img" src="image/end_section/line-2.sgv" alt="" />
+                <img class="facebook" src="image/end_section/Facebook.png" alt="" />
+                <img class="instagram" src="image/end_section/Instagram.png" alt=""/>
+                <img class="twitter-x" src="image/end_section/TwitterX.png" alt=""/>
+                <img class="you-tube" src="image/end_section/YouTube.png" alt=""/>
+            </div>
+        </div>
+    </body>
+</html>

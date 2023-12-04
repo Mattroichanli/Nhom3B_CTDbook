@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CTD book</title>
     <link rel="shortcut icon" href="image/Logo.png" type="image/png" />
     <link rel="stylesheet" href="/css/globals.css" />
@@ -33,16 +34,18 @@
         </div>
         
         <div class="dropdown" id="tai-khoan">
-            <button class="dropbtn" style="background: url(image/toolbar_section/Person.png)"></button>
-            <p>Tài khoản</p>
+            <a href="/login"> 
+                <div class="container">
+                    <div class="dropbtn" style="background: url(image/toolbar_section/Person.png) no-repeat"></div>
+                    <div class="accountTitle">Tài khoản</div>
+                </div>
+            </a>
             <div class="dropdown-content">
                 <a href="/login">Đăng nhập</a>
-                <a href="#">Đăng ký</a>
+                <a href="/signup">Đăng ký</a>
             </div>
         </div>
     </div>
-
-
 
     <!-- main banner -->
     <div class="image_mb">

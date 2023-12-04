@@ -106,7 +106,12 @@
     top: 31px;
     left: 1240px;
 }
-#tai-khoan button {
+
+.container {
+    width: auto;
+}
+
+.container div {
     position: fixed;
     width: 40px;
     height: 40px;
@@ -115,7 +120,7 @@
     border: none;
     float: left;
 }
-#tai-khoan p {
+.container .accountTitle {
     position: fixed;
     width: fit-content;
     font-family: "Inter-Medium", Helvetica;
@@ -135,13 +140,14 @@
     width: 144px;
     height: 103px;
     float: left;
+    cursor: pointer; /*mới thêm*/
 }
 .box #menu{
     margin-top: 31px;
     margin-left: 24px;
     width: 61px;
     height: 61px;
-    background: url(image/toolbar_section/Category.png);
+    background: url(image/toolbar_section/Category.png); /*mấy url đã bị bỏ á*/
     border: none;
     float: left;
 }

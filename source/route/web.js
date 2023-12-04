@@ -14,6 +14,11 @@ router.get('/login', function (req, res) {
 router.get('/signup', function (req, res) {
     res.sendFile(path.join(__dirname, '..', 'views', 'signup.html'));
 });
+
+router.get('/thongtin', function (req, res) {
+    res.sendFile(path.join(__dirname, '..', 'views', 'thongtin.html'));
+});
+
 /*
 router.get('/sachmoi', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/sachmoi.html'));
