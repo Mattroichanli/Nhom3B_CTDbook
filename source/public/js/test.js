@@ -1,16 +1,5 @@
-<<<<<<< HEAD
-const mongoose = require("mongoose")
-mongoose.connect("mongodb://localhost:27017/LoginFormPractice")//mongodb + srv://nhom3b:nhom3b@cluster0.mlensdg.mongodb.net/?retryWrites=true&w=majority"
-    .then(() => {
-    console.log('mongoose connected');
-})
-    .catch((e) => {
-        console.log('failed');
-    })
-=======
 ////Chi gửi ----------------
 
->>>>>>> demo
 
 
 const { MongoClient, ServerApiVersion, Db, DBRef } = require('mongodb');
