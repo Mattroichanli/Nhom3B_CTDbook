@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<%- include("./partials/head.ejs") %>
+<body>
+    scroll-padding-top: 123px;
+    <div class="desktop"><div class="div"></div></div>
+    <!-- toolbar -->
+    <%- include("./partials/toolbar.ejs") %>
+    <!--end toolbar-->
+
+    <div class="content">
+        <form action="/signup" method="POST" style="padding: 16px; max-width: 500px;">
+            <div class="imgcontainer">
+                <span id="title" style="font-size:32px"><b> SIGN UP </b></span>
+            </div>
+
+            <div class="field">
+                <div class="inputF">
+                    <label for="email"><b>Email</b></label>
+                    <input type="email" name="mail" placeholder="Email" required />
+                </div>
+                <div class="inputF">
+                    <input type="text" name="username" placeholder="Username" required />
+                </div>
+                <div class="inputF">
+                    <label for="password"><b>Password</b></label>
+                    <input type="password" name="password" placeholder="Password" required />
+                </div>
+                <div class="inputF">
+                    <input type="password" name="password1" placeholder="Re-enter password" required />
+                </div>
+                
+                <button class="btn" type="submit" style="text-align:center">Sign Up</button>
+                <p><%= err %></p>
+                <span class="login" style="text-align:center; padding:0px 20px 5px 0px ">Already have an account?<a href="/login">LOG IN</a></span>
+            </div>
+        </form>
+    </div>
+    <!--footer-->
+    <%- include("./partials/footer.ejs") %>
+</body>
+</html>

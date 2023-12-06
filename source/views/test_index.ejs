@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<%- include("./partials/head.ejs") %>
+<body>
+    scroll-padding-top: 123px;
+    <div class="desktop"><div class="div"></div></div>
+    <!-- toolbar -->
+    <div class="box">
+        <img src="image/Logo.png" onclick="location.href='/main'" alt="">
+        <button id="menu" style="background: url(image/toolbar_section/Category.png)"></button>
+        <div class="dropdown-content" id="myDropdown">
+            <!-- Nội dung của dropdown sẽ được đặt ở đây -->
+            <a class="cate-item">VĂN HỌC</a>
+            <a href="/tieuthuyet">Tiểu thuyết</a>
+            <a href="/tntv">Truyện ngắn - Tản văn</a>
+            <a href="/lightnovel">Light Novel</a>
+            <a class="cate-item">THIẾU NHI</a>
+            <a href="/truyentranh">Truyện tranh</a>
+            <a class="cate-item">GIÁO KHOA - THAM KHẢO</a>
+            <a href="/sgk">Sách giáo khoa</a>
+            <a href="/luyenthi">Luyện thi THPT Quốc Gia</a>
+            <a class="cate-item" href="/sachmoi">SÁCH MỚI</a>
+            <a class="cate-item" href="/sachbanchay">SÁCH BÁN CHẠY</a>
+        </div>
+        <script>
+          // Lắng nghe sự kiện click trên button
+          document.getElementById("menu").addEventListener("click", function() {
+            // Lấy ra phần dropdown
+            var dropdown = document.getElementById("myDropdown");
+            // Kiểm tra xem dropdown hiện đang ẩn hay hiển thị
+            if (dropdown.style.display === "none") {
+                // Nếu đang ẩn, thì hiển thị dropdown bằng cách thêm class "show" vào nó
+                dropdown.style.display = "block";
+            } else {
+                // Nếu đang hiển thị, thì ẩn dropdown bằng cách loại bỏ class "show" khỏi nó
+                dropdown.style.display = "none";
+            }
+        });  
+        </script>
+        <input id="searchInput" placeholder="  Tìm kiếm sản phẩm...">
+        <button id="search" style="background: url(image/toolbar_section/Search.png)"></button>
+        <div id="thong-bao">
+            <button style="background: url(image/toolbar_section/Notification.png)"></button>
+            <p>Thông báo</p>
+        </div>
+        <div id="gio-hang">
+            <button style="background: url(image/toolbar_section/Shopping-Cart.png)"></button>
+            <p>Giỏ hàng</p>
+        </div>
+        
+        <%if (kh != '') { %>
+            <div class="accountTitle"><%= kh %></div>
+        <% } else { %>
+        <div class="dropdown" id="tai-khoan">
+            <a href="/login">
+                <div class="container">
+                    <div class="dropbtn" style="background: url(image/toolbar_section/Person.png) no-repeat"></div>
+                    <div class="accountTitle">Tài khoản</div>
+                </div>
+            </a>
+            <div class="dropdown-content">
+                <a href="/login">Đăng nhập</a>
+                <a href="/signup">Đăng ký</a>
+            </div>
+        </div>
+        <% } %>
+    </div>
+
+    <!-- main banner -->
+    <div class="image_mb">
+        <img class="main_banner" src="/image/mBanner_section/MainBanner.png" alt="" />
+        <img class="main_banner" src="/image/mBanner_section/ms_banner_img2.png" alt="" />
+        <button class="back" onclick="plusDivs(-1)">
+            <img src="/image/mBanner_section/Back.png" width="50" height="50" alt="" />
+        </button>
+        <button class="forward" onclick="plusDivs(+1)">
+            <img src="/image/mBanner_section/Forward.png" width="50" height="50" alt="" />
+        </button>
+    </div>
+
+    <script>
+        var slideIndex = 1;
+        carousel();
+        //plusDivs: page transition manually with button
+        function plusDivs(n) {
+            slideIndex += n;
+            var i;
+            var x = document.getElementsByClassName("main_banner");
+            if (slideIndex > x.length) { slideIndex = 1 }
+            if (slideIndex < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+        //carousel: page transition automatic
+        function carousel() {
+            var i;
+            var slides = document.getElementsByClassName("main_banner");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(carousel, 3000); // Change image every 3 seconds
+        }
+    </script>
+
+    <!--  -->
+    <section>
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>SÁCH MỚI</h2>
+                </div>
+                <div class="items">
+                    <% if (sps.length > 0) { %>
+                        <% const recentlyAddedBooks = sps.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); %>
+                        <% const maxBooksToShow = Math.min(5, recentlyAddedBooks.length); %>
+                        <% for (let i = 0; i < maxBooksToShow; i++) { %>
+                            <% const book = recentlyAddedBooks[i]; %>
+                            <div class="item">
+                                <img src="<%= book.img_small2 %>" onclick="location.href='/main/<%= book.id %>'" alt="">
+                                <ul class="text">
+                                    <li class="ten-sach" onclick="location.href='/main/<%= book.id %>'"><%= book.tensach %></li>
+                                    <li class="gia-tien"><%= book.giagiam %></li>
+                                    <li class="gia-goc"><%= book.giagoc %></li>
+                                </ul>
+                            </div>
+                        <% } %>
+                    <% } %>
+                </div>
+                <div class="xemthem">
+                    <button data-target="sachmoi">Xem thêm</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>SÁCH BÁN CHẠY</h2>
+                </div>
+                <div class="items">
+                    <% if (sps.length > 0) { %>
+                        <% sps.forEach(sp => { %>
+                            <% if (sp.danhmuc === 'sachbanchay') { %>
+                                <div class="item">
+                                    <img src=<%= sp.img_small2 %> onclick="location.href='/main/<%= sp.id %>'" alt="">
+                                    <ul class="text">
+                                        <li class="ten-sach" onclick="location.href='/main/<%= sp.id %>'"><%= sp.tensach %></li>
+                                        <li class="gia-tien"><%= sp.giagiam %></li>
+                                        <li class="gia-goc"><%= sp.giagoc %></li>
+                                    </ul>
+                                </div>
+                            <% } %>
+                        <% }) %>    
+                    <% } %>
+                </div>
+                <div class="xemthem">
+                    <button data-target="sachbanchay">Xem thêm</button>
+                </div>
+            </div>
+
+        </section>
+        <img class="banner-nxb" src="image/NXBkimdong.png" alt="">
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>NHÀ XUẤT BẢN KIM ĐỒNG</h2>
+                </div>
+                <div class="items">
+                    <% let count = 0; %>
+                    <% if (sps.length > 0) { %>
+                        <% sps.forEach(sp => { %>
+                            <% if (sp.nxb === 'Kim Đồng' && count < 5) { %>
+                                <div class="item">
+                                    <img src=<%= sp.img_small2 %> onclick="location.href='/main/<%= sp.id %>'" alt="">
+                                    <ul class="text">
+                                        <li class="ten-sach" onclick="location.href='/main/<%= sp.id %>'"><%= sp.tensach %></li>
+                                        <li class="gia-tien"><%= sp.giagiam %></li>
+                                        <li class="gia-goc"><%= sp.giagoc %></li>
+                                    </ul>
+                                </div>
+                                <% count++; %>
+                            <% } %>
+                        <% }) %>    
+                    <% } %>
+                </div>
+                
+                <div class="xemthem">
+                    <button data-target="nxbkimdong">Xem thêm</button>
+                </div>
+            </div>
+
+        </section>
+        <img class="banner-nxb" src="image/NXBnhanam.png" alt="">
+        <section class="Sach">
+            <div class="product">
+                <div class="header2">
+                    <h2>NHÀ XUẤT BẢN NHÃ NAM</h2>
+                </div>
+                <div class="items">
+                    <% let count1 = 0; %>
+                    <% if (sps.length > 0) { %>
+                        <% sps.forEach(sp => { %>
+                            <% if (sp.nxb === 'Nhã Nam' && count < 5) { %>
+                                <div class="item">
+                                    <img src=<%= sp.img_small2 %> onclick="location.href='/main/<%= sp.id %>'" alt="">
+                                    <ul class="text">
+                                        <li class="ten-sach" onclick="location.href='/main/<%= sp.id %>'"><%= sp.tensach %></li>
+                                        <li class="gia-tien"><%= sp.giagiam %></li>
+                                        <li class="gia-goc"><%= sp.giagoc %></li>
+                                    </ul>
+                                </div>
+                                <% count1++; %>
+                            <% } %>
+                        <% }) %>    
+                    <% } %>
+                </div>
+                
+                <div class="xemthem">
+                    <button data-target="nxbnhanam">Xem thêm</button>
+                </div>
+            </div>
+        </section>
+        <script>
+            document.querySelectorAll(".xemthem button").forEach(button => {
+                button.addEventListener("click", function() {
+                    // Lấy đường dẫn cần chuyển đến từ thuộc tính data-target
+                    const target = button.getAttribute("data-target");
+                    
+                    // Thực hiện chuyển hướng đến trang tương ứng
+                    window.location.href = `/${target}`;
+                });
+            });
+        </script>
+        <script>
+            const searchButton = document.getElementById("search");
+        
+            if (searchButton) {
+                searchButton.addEventListener("click", function() {
+                    const searchText = document.getElementById("searchInput").value;
+                    if (searchText !== '') {
+                        window.location.href = `/search/${encodeURIComponent(searchText)}`;
+                    }
+                });
+            }
+        </script>
+        
+    </section>
+    <!--footer-->
+    <%- include("./partials/footer.ejs") %>
+</body>
+</html>

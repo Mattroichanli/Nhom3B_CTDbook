@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CTD book</title>
+    <link rel="shortcut icon" href="image/Logo.png" type="image/png" />
+    <link rel="stylesheet" href="/css/globals.css" />
+    <link rel="stylesheet" href="/css/style_end.css" />
+    <link rel="stylesheet" href="/css/style_toolbar.css" />
+    <link rel="stylesheet" href="/css/hover_menu.css" />
+    <link rel="stylesheet" href="/css/form.css" />
+
+</head>
+<body>
+    scroll-padding-top: 123px;
+    <div class="desktop"><div class="div"></div></div>
+    <!-- toolbar -->
+    <div class="box">
+        <img src="image/Logo.png" alt="">
+        <button id="menu" style="background: url(image/toolbar_section/Category.png)"></button>
+        <input placeholder="  Tìm kiếm sản phẩm...">
+        <button id="search" style="background: url(image/toolbar_section/Search.png)"></button>
+
+        <div id="thong-bao">
+            <button style="background: url(image/toolbar_section/Notification.png)"></button>
+            <p>Thông báo</p>
+        </div>
+        <div id="gio-hang">
+            <button style="background: url(image/toolbar_section/Shopping-Cart.png)"></button>
+            <p>Giỏ hàng</p>
+        </div>
+
+        <div class="dropdown" id="tai-khoan">
+            <a href="/login">
+                <div class="container">
+                    <div class="dropbtn" style="background: url(image/toolbar_section/Person.png) no-repeat"></div>
+                    <div class="accountTitle">Tài khoản</div>
+                </div>
+            </a>
+            <div class="dropdown-content">
+                <a href="/login">Đăng nhập</a>
+                <a href="/signup">Đăng ký</a>
+            </div>
+        </div>
+    </div>
+    <!--end toolbar-->
+
+    <form action="/login" method="post" style="padding: 16px; align-items: center; max-width: 700px;">
+        <div class="imgcontainer">
+            <span id="title" style="font-size:32px"><b> LOG IN </b></span>
+        </div>
+        <div class="field">
+            <div class="inputF">
+                <label for="email"><b>Email</b></label>
+                <input type="email" name="mail" placeholder="Email" required />
+            </div>
+            <div class="inputF">
+                <label for="password"><b>Password</b></label>
+                <input type="password" name="password" placeholder="Password" required />
+            </div>
+            
+            <button class="btn" type="submit" style="text-align:center">Log In</button>
+            <span class="signup" style="text-align:center">Don't have an account? &nbsp<a href="/signup">SIGN UP</a></span>
+        </div>      
+    </form>
+ 
+   
+    <!--footer-->
+    <div class="box_footer">
+        <div class="end">
+            <img class="line" src="image/end_section/line-1.sgv" alt="" />
+            <img class="logo" src="image/Logo.png" alt="" />
+            <p class="diachi">
+                Duong Han Thuyen, khu pho 6, <br />Thu Duc, Thanh pho Ho Chi Minh<br />Hotline: 0123456789<br />ctdbook@gmail.comcom
+            </p>
+            <p class="text-wrapper">Kết nối mạng xã hội</p>
+            <img class="img" src="image/end_section/line-2.sgv" alt="" />
+            <img class="facebook" src="image/end_section/Facebook.png" alt="" />
+            <img class="instagram" src="image/end_section/Instagram.png" alt="" />
+            <img class="twitter-x" src="image/end_section/TwitterX.png" alt="" />
+            <img class="you-tube" src="image/end_section/YouTube.png" alt="" />
+        </div>
+    </div>
+</body>
+</html>

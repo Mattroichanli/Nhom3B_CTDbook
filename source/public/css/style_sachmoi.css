@@ -23,7 +23,7 @@
 }
 .header2 h2
 {
-    width: 250px;
+    width: 360px;
     height: 86px;
     font-style: normal;
     font-weight: lighter;
@@ -111,17 +111,23 @@ ul {
 }
 .text .ten-sach
 {
-width: 220px;
-height: 22px;
+    width: 90%; /* mới thêm*/
+    height: 22px;
 
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 22px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
 
-padding-left: 10px;
-color: #000000;
+    padding-left: 10px;
+    color: #000000;
+
+    /* mới thêm*/ 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
 }
 .text .gia-tien
 {
@@ -139,7 +145,6 @@ color: #D51C24;
 }
 .text .gia-goc
 {
-width: 76px;
 height: 19px;
 
 font-family: 'Inter';
@@ -147,7 +152,7 @@ font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 19px;
-text-align: center;
+text-align: left; /* mới thêm*/
 text-decoration-line: line-through;
 
 padding-left: 10px;

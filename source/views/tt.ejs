@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<%- include("./partials/head.ejs") %>
+<link rel="stylesheet" href="/css/style_thongtin.css" />
+    <body>
+        scroll-padding-top: 123px;
+        <div class="desktop"><div class="div"></div></div>
+        <!-- toolbar -->
+        <%- include("./partials/toolbar.ejs") %>
+
+        <!--  -->
+        <section>
+            <section class="Sach">
+                <div class="product">
+                    <div class="product_url">
+                        <ol class="url">
+                            <li class="0"> <a onclick="location.href='/main'">Trang chủ</a> <span>&#62;</span> </li>
+                            <li class="1"> <a onclick="location.href='/main'">Sách mới</a> <span>&#62;</span> </li>
+                            <li class="2"> <a onclick="location.href='/main'">NXB Nhã Nam</a> </li>
+                        </ol>
+                    </div>
+                    <div class="show">
+                        <div class="product_media">
+                            <div class="product_view">
+                                <div class="img_small">
+                                    <div class="items">
+                                        <a class="item-1" title="<%= title %>" href=<%= sp.img_small1 %>>
+                                            <img src=<%= sp.img_small1 %> alt="img-1">
+                                        </a>
+                                        <a class="item-2" title="<%= title %>" href=<%= sp.img_small2 %>>
+                                            <img src=<%= sp.img_small2 %> alt="img-2">
+                                        </a>
+                                        <a class="item-3" title="<%= title %>" href=<%= sp.img_small3 %>>
+                                            <img src=<%= sp.img_small3 %> alt="img-3">
+                                        </a>
+                                        <a class="item-4" title="<%= title %>" href=<%= sp.img_small4 %>>
+                                            <img src=<%= sp.img_small4 %> alt="img-4">
+                                        </a>
+                                        <a class="item-5" title="<%= title %>" href=<%= sp.img_small5 %>>
+                                            <img src=<%= sp.img_small5 %> alt="img-5">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="img_big" img_index="0">
+                                    <img src=<%= sp.img_small1 %> alt="img-1" title="<%= title %>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product_detail">
+                            <h1><%= title %></h1>
+                            <div class="gia">
+                                <span class="giagiam"><%= sp.giagiam %></span>
+                                <span class="giagoc"><%= sp.giagoc %></span>
+                                <span class="giam"><%= sp.phantram %></span>
+                            </div>
+                            <div class="ttsp">
+                                <div class="masp" style="margin-bottom: 15px;">
+                                    <span>Mã sản phẩm: </span>
+                                    <span><%= sp.masp %></span>
+                                </div>
+                                <div class="nxb" style="margin-bottom: 15px;">
+                                    <span>Nhà xuất bản: </span>
+                                    <span><%= sp.nxb %></span>
+                                </div>
+                                <div class="tacgia" style="margin-bottom: 15px;">
+                                    <span>Tác giả: </span>
+                                    <span><%= sp.tacgia %></span>
+                                </div>
+                                <div class="bia" style="margin-bottom: 15px;">
+                                    <span>Hình thức bìa: </span>
+                                    <span><%= sp.bia %></span>
+                                </div>
+                            </div>                            
+                            <div id="sl">
+                                <label>Số lượng: </label>
+                                <div class="sl_box">
+                                    <a class="sub">&#8722;</a>
+                                    <input id="so" maxvalue="999" minvalue="1" align="center" value="1">
+                                    <a class="add">&#43;</a>
+                                </div>
+                            </div>                            
+                            <div class="add_or_buy">
+                                <button type="button" title="Thêm giỏ hàng" class="add">
+                                    <span class="cart_icon"></span>
+                                    <span>Thêm vào giỏ</span>
+                                </button>
+                                <button type="button" title="Mua ngay" class="buy">
+                                    <span>Mua ngay</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </section>
+            <section class="Sach_items">
+                <div class="product">
+                    <div class="title_sp">Mô tả sản phẩm</div>
+                    <div class="ct_ttsp">
+                        <div class="coban">
+                            <table class="ttcb">
+                                <colgroup>
+                                    <col width="25%">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>Mã sản phẩm</td>
+                                        <td><%= sp.masp %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nhà xuất bản</td>
+                                        <td><%= sp.nxb %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tác giả</td>
+                                        <td><%= sp.tacgia %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dịch giả</td>
+                                        <td><%= sp.dichgia %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Năm xuất bản</td>
+                                        <td><%= sp.namxb %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Trọng lượng (g)</td>
+                                        <td><%= sp.trongluong %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kích thước</td>
+                                        <td><%= sp.kichthuoc %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Số trang</td>
+                                        <td><%= sp.sotrang %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Định dạng</td>
+                                        <td><%= sp.bia %></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="chitiet">
+                            <div class="mota">
+                                <p class="title_sach"><%- sp.tensach %></p>
+                                <p><%- sp.mota %></p>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="xemthem">
+                        <a id="more">Xem Thêm</a>
+                    </div>
+                </div>  
+            </section>
+        </section>
+
+        <!--footer-->
+        <%- include("./partials/footer.ejs") %>
+    </body>
+</html>
