@@ -1,9 +1,49 @@
 <div class="box"> 
     <img src="/image/Logo.png" onclick="location.href='/main'" alt=""> <!--! /*mới sửa onclick*/-->
     <button id="menu" style="background: url(/image/toolbar_section/Category.png)"></button>
-    <input placeholder="  Tìm kiếm sản phẩm...">
+    <div class="dropdown-content" id="myDropdown">
+        <!-- Nội dung của dropdown sẽ được đặt ở đây -->
+        <a class="cate-item">VĂN HỌC</a>
+        <a href="/tieuthuyet">Tiểu thuyết</a>
+        <a href="/tntv">Truyện ngắn - Tản văn</a>
+        <a href="/lightnovel">Light Novel</a>
+        <a class="cate-item">THIẾU NHI</a>
+        <a href="/truyentranh">Truyện tranh</a>
+        <a class="cate-item">GIÁO KHOA - THAM KHẢO</a>
+        <a href="/sgk">Sách giáo khoa</a>
+        <a href="/luyenthi">Luyện thi THPT Quốc Gia</a>
+        <a class="cate-item" href="/sachmoi">SÁCH MỚI</a>
+        <a class="cate-item" href="/sachbanchay">SÁCH BÁN CHẠY</a>
+    </div>
+    <script>
+      // Lắng nghe sự kiện click trên button
+      document.getElementById("menu").addEventListener("click", function() {
+        // Lấy ra phần dropdown
+        var dropdown = document.getElementById("myDropdown");
+        // Kiểm tra xem dropdown hiện đang ẩn hay hiển thị
+        if (dropdown.style.display === "none") {
+            // Nếu đang ẩn, thì hiển thị dropdown bằng cách thêm class "show" vào nó
+            dropdown.style.display = "block";
+        } else {
+            // Nếu đang hiển thị, thì ẩn dropdown bằng cách loại bỏ class "show" khỏi nó
+            dropdown.style.display = "none";
+        }
+    });  
+    </script>
+    <input id="searchInput" placeholder="  Tìm kiếm sản phẩm...">
     <button id="search" style="background: url(/image/toolbar_section/Search.png)"></button>
-
+    <script>
+        const searchButton = document.getElementById("search");
+    
+        if (searchButton) {
+            searchButton.addEventListener("click", function() {
+                const searchText = document.getElementById("searchInput").value;
+                if (searchText !== '') {
+                    window.location.href = `/search/${encodeURIComponent(searchText)}`;
+                }
+            });
+        }
+    </script>
     <div id="thong-bao">
         <button style="background: url(/image/toolbar_section/Notification.png)"></button>
         <p>Thông báo</p>
