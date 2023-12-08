@@ -7,17 +7,9 @@ const productController = {
       res.render('test_sachmoi', { spmois: latestProducts, title: 'Sách mới', pageTitle: 'SÁCH MỚI'});
     },
     async sachbanchay(req, res) {
-      //const latestProducts = await SP.find()
-      //                               .sort({ luotban: -1 }) // Sắp xếp theo trường luotban giảm dần để lấy sản phẩm bán nhiều nhất
-      //res.render('test_sachmoi', { spmois: latestProducts, title: 'Sách bán chạy', pageTitle: 'SÁCH BÁN CHẠY'});
-
-      SP.find({danhmuc: 'sachmoi'})
-      .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Sách bán chạy', pageTitle: 'SÁCH BÁN CHẠY'});
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      const latestProducts = await SP.find()
+                                     .sort({ luotban: -1 }) // Sắp xếp theo trường luotban giảm dần để lấy sản phẩm bán nhiều nhất
+      res.render('test_sachmoi', { spmois: latestProducts, title: 'Sách bán chạy', pageTitle: 'SÁCH BÁN CHẠY'});
     },
     async tieuthuyet(req, res) {
       SP.find({danhmuc: 'tieuthuyet'})
@@ -92,54 +84,60 @@ const productController = {
         });
     },
     async search(req, res) {
-      const name = req.params.name; 
-      const regex = new RegExp(name, 'i');
-      await SP.find({ 
-        $or: [
-            { tensach: { $regex: regex } }, // Điều kiện 1: tìm kiếm trong trường tensach
-            { id: { $regex: regex } } // Điều kiện 2: tìm kiếm trong trường ip
-        ]
-    })
+      const name = req.params.name;
+      const words = name.split(' '); // Tách name thành các từ cách nhau bởi dấu cách
+      
+      const conditions = words.map(word => ({
+          $or: [
+              { tensach: { $regex: new RegExp(word, 'i') } }, // Tìm kiếm từng từ trong trường tensach
+              { id: { $regex: new RegExp(word, 'i') } } // Tìm kiếm từng từ trong trường id
+          ]
+      }));
+      // $or để kết hợp các điều kiện tìm kiếm
+      const searchQuery = { $or: conditions };
+      
+      // Tìm kiếm trong collection
+      await SP.find(searchQuery)
       .then(result => {
-        res.render('search', { spmois: result, title: 'Tìm kiếm'});
+        res.render('search', { spmois: result, title: 'Tìm kiếm', key:name});
       })
       .catch(err => {
         console.log(err);
       });
     },
     async addNewProduct(req, res) {
-        const sp = new SP({
-            id: 'hoikivanitastap9',
-            tensach: 'Hồi Kí Vanitas - Tập 9',
-            masp: '0017',
-            danhmuc: 'truyentranh',
-            nxb: 'Kim Đồng',
-            tacgia: 'Jun Mochizuki',
-            namxb: 2022,
-            dichgia: 'Ruyuha Kyouka',
-            giagoc: '36.000 đ',
-            giagiam: '34.200 đ',
-            phantram: '5%',
-            trongluong: 250,
-            kichthuoc: '18 x 13 cm',
-            sotrang: 196,
-            bia: 'Bìa mềm',
-            img_small1: 'https://cdn0.fahasa.com/media/catalog/product/h/o/hoi-ki-vanitas---tap-9.jpg',
-            img_small2: 'https://cdn0.fahasa.com/media/catalog/product/h/o/hoi_ki_vanitas_-_tap_9.jpg',
-            img_small3: 'https://down-vn.img.susercontent.com/file/23ed1291fa64059339f4213b3abf6590',
-            img_small4: 'https://down-vn.img.susercontent.com/file/ffd208b41dddb913597f2631d53bfed7',
-            img_small5: 'https://salt.tikicdn.com/cache/600x600/ts/product/71/bc/9f/5d9c724a8b852d7b4c5b396132bd255e.jpg',
-            mota: 'Sau khi bị dụ đến cái bẫy do Mikhail giăng sẵn, Noé đã bị ép uống máu rồi nhìn vào kí ức của cậu ta. Trước mắt anh hiện lên chặng đường gặp gỡ và chia li giữa “Vampire Mặt Trăng Xanh”, Vanitas và Mikhail… Chỉ là Noé không được vạch trần bóng tối khuất sau vầng trăng ấy.<br><br>“Tôi nhất định phải hạ con Vampire đó”.',
-         })
-        
-          sp.save()
-            .then(result => {
-              res.send(result);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-    },
+      const sp = new SP({
+        id: 'hoangtube',
+        tensach: 'Hoàng Tử Bé',
+        masp: '0022',
+        danhmuc: 'tntv',
+        nxb: 'Kim Đồng',
+        tacgia: 'Antoine De Saint-Exupéry',
+        namxb: 2022,
+        dichgia: 'Nguyễn Thành Long',
+        giagoc: '35.000 đ',
+        giagiam: '33.250 đ',
+        phantram: '5%',
+        trongluong: 120,
+        kichthuoc: '19 x 13 x 0.7 cm',
+        sotrang: 112,
+        bia: 'Bìa mềm',
+        img_small1: 'https://cdn0.fahasa.com/media/catalog/product/8/9/8935244868999.jpg',
+        img_small2: 'https://cdn0.fahasa.com/media/flashmagazine/images/page_images/hoang_tu_be_tai_ban_2022/2022_11_11_14_12_20_1-390x510.jpg',
+        img_small3: 'https://cdn0.fahasa.com/media/flashmagazine/images/page_images/hoang_tu_be_tai_ban_2022/2022_11_11_14_12_20_5-390x510.jpg',
+        img_small4: 'https://cdn0.fahasa.com/media/flashmagazine/images/page_images/hoang_tu_be_tai_ban_2022/2022_11_11_14_12_20_2-390x510.jpg',
+        img_small5: 'https://cdn0.fahasa.com/media/flashmagazine/images/page_images/hoang_tu_be_tai_ban_2022/2022_11_11_14_12_20_3-390x510.jpg',
+        mota: '“...Cậu hoàng tử chợp mắt ngủ, tôi bế em lên vòng tay tôi và lại lên đường. Lòng tôi xúc động. Tôi có cảm giác như trên Mặt Đất này không có gì mong manh hơn. Nhờ ánh sáng trăng, tôi nhìn thấy vầng trán nhợt nhạt ấy, đôi mắt nhắm nghiền các lẵng tóc run rẩy trước gió, và tôi nghĩ thầm: "Cái mà ta nhìn thấy đây chỉ là cái vỏ. Cái quan trọng nhất thì không nhìn thấy được..." ANTOINE DE SAINT-EXUPÉRY<br><br>“Hoàng tử bé ngắn mà mãnh liệt... biểu hiện nỗi đau của nhà văn và tư tưởng triết học của ông về ý nghĩa của sự có mặt ở trên đời, nỗi khát khao không thể nào vơi được về lòng nhân ái, về sự cảm thông giữa những con người...” - Dịch giả NGUYỄN THÀNH LONG',
+        luotban: 4,
+        })
+        sp.save()
+        .then(result => {
+          res.send(result);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      },
     async ttsp(req, res) {
         const url = req.params.id; 
         SP.findOne({id: url})

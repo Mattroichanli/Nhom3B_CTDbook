@@ -97,15 +97,11 @@ const spSchema = new Schema({
   mota: {
     type: String,
     required: true
-  },/*
-  tensach2: {
-    type: String,
-    required: true
   },
   luotban: {
     type: Number,
     required: true
-  }*/
+  },
 }, { timestamps: true });
 
 const SanPham = mongoose.model('CacSanPham', spSchema);

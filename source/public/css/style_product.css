@@ -36,6 +36,11 @@
     border-radius: 5px;
     box-shadow: 1px 1px 5px #9a9e9f;
 }
+.item:hover
+{
+    box-shadow: 5px 5px 5px #9a9e9f;
+    transform: translate(-3px, -3px);
+}
 .item .text
 {
 margin-top: 0px;
@@ -120,7 +125,7 @@ color: #7A7E7F;
     width: 179px;
     height: 41px;
     border-radius: 10px;
-    border: solid #D51C24;
+    border: solid #cb6ce6;
     background-color: white;
 
     font-family: 'Inter';
@@ -129,7 +134,12 @@ color: #7A7E7F;
     font-size: 20px;
     line-height: 24px;
     text-align: center;
-    color: #D51C24;
+    color: #cb6ce6;
+}
+.xemthem button:hover
+{
+    background-color: #cb6ce6;
+    color: white;
 }
 .banner-nxb
 {
