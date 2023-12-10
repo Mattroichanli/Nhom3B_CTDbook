@@ -20,6 +20,7 @@ const getMail = () => {
 const userController = {
     async login(req, res) {
         setKh('');
+        setMail('');
         res.render('test_login', {title: 'Login', err: err, kh: getKh()});
         err = '';
     },

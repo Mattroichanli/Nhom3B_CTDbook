@@ -19,7 +19,7 @@ router.get("/search/:name", productController.search);
 
 
 /*mới*/
-/*router.get("/giohang", productController.giohang);*/
+router.get("/giohang", productController.giohang);
 router.post("/main/:id", productController.themgio); /*post*/
 
 module.exports = router

@@ -121,9 +121,10 @@ a
     background: transparent;
     cursor: pointer;
 }
-.cart__image img {
+.cart_image img {
     display: block;
     max-width: 100%;
+    width: 215px;
 }
 img {
     vertical-align: middle;
@@ -139,13 +140,14 @@ img {
     margin: 0 0 0.5em;
     line-height: 1.4;
 }
-.h3
+.h3 , .dongia
 {
     font-size: 1.21em;
     display: block;
     font-family: Roboto;
     font-weight: 700;
     line-height: 1.4;
+    white-space: nowrap;
 }
 .cart__remove {
     display: block;
@@ -173,7 +175,7 @@ img {
     text-align: center;
     color: #646464;
 }
-#so
+.so
 {
     background-color: inherit;
     border: none !important;
@@ -182,6 +184,8 @@ img {
     font-size: 20px;
     height: 100%;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 /*ghi chú*/
@@ -228,6 +232,14 @@ p {
 .cart_subtotal {
     margin: 0 0 0 10px;
     display: inline;
+
+    /*h3*/
+    font-size: 1.21em;
+    display: block;
+    font-family: Roboto;
+    font-weight: 700;
+    line-height: 1.4;
+    white-space: nowrap;
 }
 .btn-cart
 {
@@ -244,4 +256,42 @@ p {
     border-radius: 4px;
     background: #338dbc;
     border: none;
+}
+
+/*No Mail*/
+.cart-ui-content {
+    display: flex;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #fff;
+    flex: 1;
+    border-radius: 8px;
+
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    min-height: 300px;
+
+}
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.icon-emty img
+{
+    width: 160px;
+    height: 160px;
+}
+.cart-emty p
+{
+    margin: 20px 0 0 0 !important;
+}
+.cart-emty a
+{
+    font-style: italic;
 }

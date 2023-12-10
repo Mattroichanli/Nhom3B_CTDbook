@@ -6,7 +6,7 @@
         scroll-padding-top: 123px;
         <div class="desktop"><div class="div"></div></div>
         <!--form bắt đầu từ đây-->
-        <form action="" method="post">
+        <form action="/main/<%= sp.id %>" method="post">
         <!-- toolbar -->
         <div class="box"> 
             <img src="/image/Logo.png" onclick="location.href='/main'" alt=""> <!--! /*mới sửa onclick*/-->
@@ -55,11 +55,11 @@
                 }
             </script>
             <div id="thong-bao">
-                <button style="background: url(/image/toolbar_section/Notification.png)"></button>
+                <button type="button" style="background: url(/image/toolbar_section/Notification.png)"></button>
                 <p>Thông báo</p>
             </div>
             <div id="gio-hang">
-                <button style="background: url(/image/toolbar_section/Shopping-Cart.png)" onclick="location.href='/giohang'"></button>
+                <button type="button" style="background: url(/image/toolbar_section/Shopping-Cart.png)" onclick="location.href='/giohang'"></button>
                 <p>Giỏ hàng</p>
             </div>
         
@@ -162,7 +162,7 @@
                                 <div class="sl_box">
                                     <a class="sub" onclick="decreaseQuantity()">&#8722;</a>
                                     <input name="sl" id="so" maxvalue="999" minvalue="1" align="center" value="1">
-                                    <a class="add"onclick="increaseQuantity()">&#43;</a>
+                                    <a class="add" onclick="increaseQuantity()">&#43;</a>
                                 </div>
                                 <script>
                                     function increaseQuantity() {
@@ -180,10 +180,10 @@
                                         inputElement.value = currentValue - 1;
                                       }
                                     }
-                                  </script>
+                                </script>
                             </div>                            
                             <div class="add_or_buy">
-                                <button type="submit" title="Thêm giỏ hàng" class="add" id="add" onclick="validateEmail()">
+                                <button type="button" title="Thêm giỏ hàng" class="add" id="add" onclick="validateEmail()">
                                     <span class="cart_icon"></span>
                                     <span>Thêm vào giỏ</span>
                                     <input type="hidden" name="id" value="<%= sp.id %>">
@@ -299,7 +299,7 @@
                 notification.style.display = 'flex';
                 setTimeout(function () {
                     notification.style.display = 'none';
-                }, 3000); // Ẩn thông báo sau 3 giây (3000 miliseconds)
+                }, 10000);
                 }
             </script>
         <% } else if (err === 'Yes') {%> 
@@ -309,7 +309,7 @@
                 notification.style.display = 'flex';
                 setTimeout(function () {
                     notification.style.display = 'none';
-                }, 3000); // Ẩn thông báo sau 3 giây (3000 miliseconds)
+                }, 10000); // Ẩn thông báo
                 }
             </script>
         <% } %>     
@@ -322,7 +322,14 @@
                 // Kiểm tra nếu giá trị của email không phải là null hoặc rỗng
                 if (emailInput.value.trim() === '') {
                     notification_err.style.display = "flex";
+                    setTimeout(function () {
+                        notification_err.style.display = 'none';
+                    }, 10000);
                 } 
+                else {
+                    var addButton = document.getElementById("add");           
+                    addButton.type = "submit";
+                }
             }
 
             function closeNotification() {

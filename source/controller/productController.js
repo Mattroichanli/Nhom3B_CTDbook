@@ -149,7 +149,6 @@ const productController = {
         const url = req.params.id; 
         SP.findOne({id: url})
         .then(result => {
-          console.log(err);
             res.render('tt', {sp: result, title: result.tensach , err: err, kh: getKh(), mail: getMail()});
             err = '';
           })
@@ -194,7 +193,34 @@ const productController = {
       .catch(err => {
         console.log(err);
       });
-    }
+    }, 
+    async giohang(req, res) {
+      const mail = getMail();
+      if (mail == '') {
+        err = 'No Mail';
+        res.render('giohang', {title: 'Giỏ hàng', err: err, kh: getKh()});
+        err = '';
+      } 
+      else {
+        let allSP = [];
+        Cart.find({mail: mail})
+        .then(result => {
+          return Promise.all(result.map(async r => {
+            // Thực hiện cuộc gọi để lấy thông tin sản phẩm và giữ lại thông tin số lượng
+            const infoSP = await SP.findOne({ masp: r.masp });
+            const infoFull = { ...infoSP.toObject(), sl: r.sl };
+            return infoFull;
+          }));
+        })
+        .then(resultsArray => {
+          allSP = resultsArray;
+          res.render('giohang', { sps: allSP, title: 'Giỏ hàng', err: err, kh: getKh()});
+        })  
+        .catch(err => {
+          console.log(err);
+        });
+      }          
+  },
 }
 
 module.exports = productController;

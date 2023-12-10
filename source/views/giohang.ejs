@@ -11,60 +11,116 @@
         <!--  -->
         <div class="cart">
             <h1>Giỏ hàng</h1>
-            <form action="/cart" method="POST" class="cart_form">
-                <table class="cart_table">
-                    <thead class="cart_row cart_header-lables">
-                        <tr>
-                            <th colspan="2" class="text-center">Sản phẩm</th>
-                            <th class="text-center">Đơn giá</th>
-                            <th class="text-center">Số lượng</th>
-                            <th class="text-right">Tổng giá</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="cart_row table_section">
-                            <td data-lable="Sản phẩm">
-                                <a class="cart_image" href="image/sachmoi1.jpg">
-                                    <img src="/image/Logo.png" alt="Bố ngồi cùng con nhé!">
-                                </a>
-                            </td>
-                            <td>
-                                <a class="h4" href="/thongtin.html">Bố ngồi cùng con nhé!</a>
-                                Khuyến mãi: CTDDEAL - Giảm vô thời hạn 10% cho toàn bộ Sách <br>
-                                <a class="cart_remove" href="/thongtin.html">Xóa</a>
-                            </td>
-                            <td data-label="Đơn giá">
-								<span class="h3">36,000đ</span>
-							</td>
-                            <td data-label="Số lượng" data-max="0">
-                                <div class="sl_box">
-                                    <a class="sub">&#8722;</a>
-                                    <input id="so" maxvalue="999" minvalue="1" align="center" value="1">
-                                    <a class="add">&#43;</a>
-                                </div>
-                            </td>
-                            <td data-label="Tổng tiền" class="text-right">
-                                <span class="h3">72,000₫</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="grid cart_row">
-                    <div class="grid_item left">
-						<label for="ghichu">Ghi chú</label>
-						<textarea name="note" class="input-full" id="ghichu"></textarea>
-					</div>
-                    <div class="grid_item text-right right">
-                        <p>
-							<span class="cart_subtotal-title">Tạm tính</span>
-							<span class="h3 cart_subtotal">72,000₫</span>
-						</p>
-                        <button type="submit" name="update" class="btn-cart">Cập nhật</button>
-                        <button type="submit" name="checkout" class="btn-cart">Thanh toán</button>
+            <% if (err == 'No Mail') {%>
+                <div class="cart-ui-content">
+                    <div class="cart-emty">
+                        <div class="icon-emty">
+                            <img src="https://cdn3.iconfinder.com/data/icons/shopping-and-ecommerce-33/90/empty_cart-512.png">
+                        </div>
+                        <p>Vui lòng <a onclick="location.href='/login'">Đăng nhập</a> hoặc <a onclick="location.href='/signup'">Đăng kí</a> để xem giỏ hàng.</p>
                     </div>
                 </div>
-            </form>
+            <% } else {%>
+                <% if (sps.length > 0) { %>
+                    <form action="/cart" method="POST" class="cart_form">
+                        <table class="cart_table">
+                            <thead class="cart_row cart_header-lables">
+                                <tr>
+                                    <th colspan="2" class="text-center">Sản phẩm</th>
+                                    <th class="text-center">Đơn giá</th>
+                                    <th class="text-center">Số lượng</th>
+                                    <th class="text-right">Tổng giá</th>
+                                </tr>
+                            </thead>
+                            <% sps.forEach(sp => { %>
+                                <tbody>
+                                    <tr class="cart_row table_section">
+                                        <td data-lable="Sản phẩm">
+                                            <a class="cart_image" href="/main/<%= sp.id%>">
+                                                <img src="<%= sp.img_small2 %>" alt="<%= sp.tensach %>">
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="h4" href="/thongtin.html"><%= sp.tensach %></a>
+                                            Khuyến mãi: CTDDEAL - Giảm vô thời hạn 10% cho toàn bộ Sách <br>
+                                            <a class="cart_remove" href="/thongtin.html">Xóa</a>
+                                        </td>
+                                        <td data-label="Đơn giá">
+                                            <span class="dongia" id="dongia<%=sp.masp%>" ><%= sp.giagiam %></span>
+                                        </td>
+                                        <td data-label="Số lượng" data-max="0">
+                                            <div class="sl_box">
+                                                <a class="sub" onclick="decreaseQuantity('<%=sp.masp%>')">&#8722;</a>
+                                                <input class="so" id="so<%=sp.masp%>" maxvalue="999" minvalue="1" align="center" value="<%= sp.sl %>">
+                                                <a class="add" onclick="increaseQuantity('<%=sp.masp%>')">&#43;</a>
+                                            </div>
+                                        </td>
+                                        <td data-label="Tổng tiền" class="text-right">
+                                            <span class="h3" id="tongtien<%=sp.masp%>"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <script>
+                                    var dongia = document.querySelector('#dongia<%=sp.masp%>').innerText;
+                                    dongia = parseFloat(dongia.replace(/[^\d.]/g, ''));
+                                    var sl = document.querySelector('#so<%=sp.masp%>').value;
+                                    sl = parseInt(sl);
+                                    var tong = dongia * 1000 * sl;
+                                    tong = tong.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                                    document.querySelector('#tongtien<%=sp.masp%>').innerText = tong;
+                                </script>
+                            <% }) %>
+                        </table>
+                        <div class="grid cart_row">
+                            <div class="grid_item left">
+                                <label for="ghichu">Ghi chú</label>
+                                <textarea name="note" class="input-full" id="ghichu"></textarea>
+                            </div>
+                            <div class="grid_item text-right right">
+                                <p>
+                                    <span class="cart_subtotal-title">Tạm tính</span>
+                                    <span class="cart_subtotal" id="tamtinh"></span>
+                                    <script>
+                                        var totalElements = document.querySelectorAll('.h3');
+                                        var total = 0;
+                                        totalElements.forEach(function(element) {
+                                            // Lấy giá trị tổng tiền từ từng sản phẩm
+                                            var tong = element.innerText;
+                                            tong = parseInt(tong.replace(/[^\d]/g, ''), 10);
+                                            // Cộng vào tổng tiền chung
+                                            total += tong;
+                                        });
+                                        total = total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                                        document.getElementById("tamtinh").innerText = total;
+                                    </script>
+                                </p>
+                                <button type="submit" name="update" class="btn-cart">Cập nhật</button>
+                                <button type="submit" name="checkout" class="btn-cart">Thanh toán</button>
+                            </div>
+                        </div>
+                    </form>    
+                <% } %>
+            <% } %>
         </div>
+        
+        <!--Script tăng/giảm số lượng-->
+        <script>
+            function increaseQuantity(masp) {
+              var inputElement = document.getElementById("so" + masp);
+              var currentValue = parseInt(inputElement.value, 10);
+              if (currentValue < 999) {
+                inputElement.value = currentValue + 1;
+              }
+            }
+          
+            function decreaseQuantity(masp) {
+              var inputElement = document.getElementById("so" + masp);
+              var currentValue = parseInt(inputElement.value, 10);
+              if (currentValue > 1) {
+                inputElement.value = currentValue - 1;
+              }
+            }
+        </script>
 
         <!--footer-->
         <%- include("./partials/footer.ejs") %>
