@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <%- include("./partials/head.ejs") %>
+    <link rel="stylesheet" href="/css/style_thanhtoan.css" />
+    <body>
+        scroll-padding-top: 123px;
+        <div class="desktop"><div class="div"></div></div>
+        <!-- toolbar -->
+        <%- include("./partials/toolbar.ejs") %>
+
+        <!--  -->
+        <div class="pay">
+            <div class="sidebar">
+                <div class="sidebar-product">
+                    <table class="product-table">
+                        <tr class="product-item">
+                            <td class="product-img">
+                                <div class="product-thumbnail">
+                                    <div class="product-thumbnail-con">
+                                        <img class="product-thumbnail-img" alt="Bố ngồi cùng con nhé!" src="image/sachmoi1.jpg"> 
+                                    </div>
+                                    <span class="product-sl">1</span>
+                                </div>
+                            </td>
+                            <td class="product-ten">
+                                <span class="tensp">Bố ngồi cùng con nhé!</span>
+                            </td>
+                            <td class="product-price">
+                                <span class="giasp">60.000đ</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="sidebar-discount">
+                    <form id="form_discount_add" method="POST">
+                        <input type="text" placeholder="Mã giảm giá" name="discount.code" class="input_field">
+                        <button type="submit" id="discount_btn">Sử dụng</button>
+                    </form>
+                </div>
+                <div class="sidebar-login">
+                    <div class="login">
+                        <h2>Khách hàng thân thiết</h2>
+                        <button type="button" href="./thanhtoan.html" id="login_btn">Login</button>
+                    </div>
+                </div>
+                <div class="sidebar-total">
+                    <table class="total-line-table">
+                        <tr class="total-line total-line-subtotal">
+                            <td class="total-line-name">Tạm tính</td>
+                            <td class="total-line-price">
+                                <span class="order-summary-emphasis">58,500₫</span>
+                            </td>
+                        </tr>
+                        <tr class="total-line total-line-shipping">
+                            <td class="total-line-name">Phí ship</td>
+                            <td class="total-line-price">
+                                <span class="order-summary-emphasis">35,000Đ</span>
+                            </td>
+                        </tr>
+                        <tfoot class="total-line-table-footer">
+                            <tr class="total-line">
+                                <td class="total-line-name payment-due-label">
+                                    <span class="payment-due-label-total">Tổng tiền</span>
+                                </td>
+                                <td class="total-line-name payment-due">
+                                    <span class="payment-due-currency">VND</span>
+                                    <span class="payment-due-price">58,500₫</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="main">
+                <div class="main-header">
+                    <a href="/" class="logo">
+                        <h1 class="logo-text">Tiệm sách CTD Books</h1>
+                    </a>
+                    <ol class="url">
+                        <li class="url-item"> <a href="index.html" title="Giỏ hàng">Giỏ hàng</a> <span>&#62;</span> </li>
+                        <li class="url-item"> <a href="thanhtoan1.html" title="TTVC">Thông tin vận chuyển</a> <span>&#62;</span> </li>
+                        <li class="url-item item-current"> Thanh toán </li>
+                    </ol>
+                </div>
+                <div class="main-content">
+                    <div class="step-sections" step="2">
+                        <h2 class="section-title">Phương thức vận chuyển</h2>
+                        <div class="content-box">
+                            <label class="radio-label" for="shipping_rate_id">
+                                <div class="radio-input">
+                                    <input id="shipping_rate_id" class="input-radio" type="radio" name="shipping_rate_id" checked>
+                                </div>
+                                <span class="radio-label-primary">Vận chuyển nội thành TP. Hồ Chí Minh - 25.000 VND; Huyện xã -35.000 VND</span>
+                                <span class="radio-accessory content-box-emphasis">35,000₫</span>
+                            </label>
+                        </div>
+                        <div id="section-payment-method">
+                            <h2 class="section-title">Phương thức thanh toán</h2>
+                            <div class="content-box">
+                                <div class="content-box-row">
+                                    <label class="two-page" for="payment_method_id_cod">
+                                        <div class="radio-input payment-method-checkbox">
+                                            <input type-id="1" id="payment_method_id_cod" class="input-radio" name="payment_method_id" type="radio" value="1002830518" checked="">
+                                        </div>                                        
+                                        <div class="radio-content-input">
+                                            <img class="main-img" src="https://cargonow.vn/wp-content/uploads/2022/08/ha%CC%80ng-to%CC%82%CC%80n-kho-5-2-1024x1024.png">
+                                            <span class="radio-label-primary">Thanh toán khi giao hàng (COD)</span>   
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="content-box-row">
+                                    <label class="two-page" for="payment_method_id_momo">
+                                        <div class="radio-input payment-method-checkbox">
+                                            <input type-id="2" id="payment_method_id_momo" class="input-radio" name="payment_method_id" type="radio" >
+                                        </div>                                        
+                                        <div class="radio-content-input">
+                                            <img class="main-img" src="data:image/png;base64,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">
+                                            <span class="radio-label-primary">Ví MoMo</span>   
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="content-box-row">
+                                    <label class="two-page" for="payment_method_id_zalo">
+                                        <div class="radio-input payment-method-checkbox">
+                                            <input type-id="3" id="payment_method_id_zalo" class="input-radio" name="payment_method_id" type="radio" >
+                                        </div>                                        
+                                        <div class="radio-content-input">
+                                            <img class="main-img" src="data:image/png;base64,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">
+                                            <span class="radio-label-primary">Ví Zalopay bằng QRCode</span>   
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="content-box-row">
+                                    <label class="two-page" for="payment_method_id_shopee">
+                                        <div class="radio-input payment-method-checkbox">
+                                            <input type-id="4" id="payment_method_id_shopee" class="input-radio" name="payment_method_id" type="radio" >
+                                        </div>                                        
+                                        <div class="radio-content-input">
+                                            <img class="main-img" src="https://play-lh.googleusercontent.com/oXs9tsmauo4_xFDsovB7i3ONfNWZ9FR8shrnegcYC4tHCjybZexXa0fpe9N_3kYqw-U">
+                                            <span class="radio-label-primary">Ví ShopeePay</span>   
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="step-footer">
+                    <button type="submit" id="thanhtoan_btn">Đặt hàng</button>
+                    <a class="step-footer-previous-link" href="giohang.html">Giỏ hàng</a>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!--footer-->
+        <%- include("./partials/footer.ejs") %>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<%- include("./partials/head.ejs") %>
+<link rel="stylesheet" href="/css/style_giohang.css" />
+    <body>
+        scroll-padding-top: 123px;
+        <div class="desktop"><div class="div"></div></div>
+        <!-- toolbar -->
+        <%- include("./partials/toolbar.ejs") %>
+
+        <!--  -->
+        <div class="cart">
+            <h1>Giỏ hàng</h1>
+            <form action="/cart" method="POST" class="cart_form">
+                <table class="cart_table">
+                    <thead class="cart_row cart_header-lables">
+                        <tr>
+                            <th colspan="2" class="text-center">Sản phẩm</th>
+                            <th class="text-center">Đơn giá</th>
+                            <th class="text-center">Số lượng</th>
+                            <th class="text-right">Tổng giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="cart_row table_section">
+                            <td data-lable="Sản phẩm">
+                                <a class="cart_image" href="image/sachmoi1.jpg">
+                                    <img src="/image/Logo.png" alt="Bố ngồi cùng con nhé!">
+                                </a>
+                            </td>
+                            <td>
+                                <a class="h4" href="/thongtin.html">Bố ngồi cùng con nhé!</a>
+                                Khuyến mãi: CTDDEAL - Giảm vô thời hạn 10% cho toàn bộ Sách <br>
+                                <a class="cart_remove" href="/thongtin.html">Xóa</a>
+                            </td>
+                            <td data-label="Đơn giá">
+								<span class="h3">36,000đ</span>
+							</td>
+                            <td data-label="Số lượng" data-max="0">
+                                <div class="sl_box">
+                                    <a class="sub">&#8722;</a>
+                                    <input id="so" maxvalue="999" minvalue="1" align="center" value="1">
+                                    <a class="add">&#43;</a>
+                                </div>
+                            </td>
+                            <td data-label="Tổng tiền" class="text-right">
+                                <span class="h3">72,000₫</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="grid cart_row">
+                    <div class="grid_item left">
+						<label for="ghichu">Ghi chú</label>
+						<textarea name="note" class="input-full" id="ghichu"></textarea>
+					</div>
+                    <div class="grid_item text-right right">
+                        <p>
+							<span class="cart_subtotal-title">Tạm tính</span>
+							<span class="h3 cart_subtotal">72,000₫</span>
+						</p>
+                        <button type="submit" name="update" class="btn-cart">Cập nhật</button>
+                        <button type="submit" name="checkout" class="btn-cart">Thanh toán</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!--footer-->
+        <%- include("./partials/footer.ejs") %>
+    </body>
+</html>

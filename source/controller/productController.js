@@ -1,10 +1,14 @@
 const SP = require('../model/ttsp');
+const Cart = require('../model/giohang');
+const { userController, setKh, getKh, setMail, getMail} = require('./userController');
+
+let err = ''
 
 const productController = {
     async sachmoi(req, res) {
       const latestProducts = await SP.find()
                                      .sort({ createdAt: -1 }) // Sắp xếp theo trường createdAt giảm dần để lấy sản phẩm mới nhất
-      res.render('test_sachmoi', { spmois: latestProducts, title: 'Sách mới', pageTitle: 'SÁCH MỚI'});
+      res.render('test_sachmoi', { spmois: latestProducts, title: 'Sách mới', pageTitle: 'SÁCH MỚI', kh: getKh()});
     },
     async sachbanchay(req, res) {
       //const latestProducts = await SP.find()
@@ -13,7 +17,7 @@ const productController = {
 
       SP.find({danhmuc: 'sachmoi'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Sách bán chạy', pageTitle: 'SÁCH BÁN CHẠY'});
+          res.render('test_sachmoi', { spmois: result, title: 'Sách bán chạy', pageTitle: 'SÁCH BÁN CHẠY', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -22,7 +26,7 @@ const productController = {
     async tieuthuyet(req, res) {
       SP.find({danhmuc: 'tieuthuyet'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Tiểu thuyết', pageTitle: 'TIỂU THUYẾT'});
+          res.render('test_sachmoi', { spmois: result, title: 'Tiểu thuyết', pageTitle: 'TIỂU THUYẾT', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -31,7 +35,7 @@ const productController = {
     async tntv(req, res) {
       SP.find({danhmuc: 'tntv'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Truyện ngắn - Tản văn', pageTitle: 'TRUYỆN NGẮN-TẢN VĂN'});
+          res.render('test_sachmoi', { spmois: result, title: 'Truyện ngắn - Tản văn', pageTitle: 'TRUYỆN NGẮN-TẢN VĂN', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -40,7 +44,7 @@ const productController = {
     async lightnovel(req, res) {
       SP.find({danhmuc: 'lightnovel'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Light novel', pageTitle: 'LIGHT NOVEL'});
+          res.render('test_sachmoi', { spmois: result, title: 'Light novel', pageTitle: 'LIGHT NOVEL', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -49,7 +53,7 @@ const productController = {
     async truyentranh(req, res) {
       SP.find({danhmuc: 'truyentranh'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Truyện tranh', pageTitle: 'TRUYỆN TRANH'});
+          res.render('test_sachmoi', { spmois: result, title: 'Truyện tranh', pageTitle: 'TRUYỆN TRANH', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -58,7 +62,7 @@ const productController = {
     async sgk(req, res) {
       SP.find({danhmuc: 'sgk'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Sách giáo khoa', pageTitle: 'SÁCH GIÁO KHOA'});
+          res.render('test_sachmoi', { spmois: result, title: 'Sách giáo khoa', pageTitle: 'SÁCH GIÁO KHOA', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -67,7 +71,7 @@ const productController = {
     async luyenthi(req, res) {
       SP.find({danhmuc: 'luyenthi'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Luyện thi', pageTitle: 'SÁCH LUYỆN THI'});
+          res.render('test_sachmoi', { spmois: result, title: 'Luyện thi', pageTitle: 'SÁCH LUYỆN THI', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -76,7 +80,7 @@ const productController = {
     async nxbkimdong(req, res) {
       SP.find({nxb: 'Kim Đồng'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'NXB Kim Đồng', pageTitle: 'NXB KIM ĐỒNG'});
+          res.render('test_sachmoi', { spmois: result, title: 'NXB Kim Đồng', pageTitle: 'NXB KIM ĐỒNG', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -85,7 +89,7 @@ const productController = {
     async nxbnhanam(req, res) {
       SP.find({nxb: 'Nhã Nam'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'NXB Nhã Nam', pageTitle: 'NXB NHÃ NAM'});
+          res.render('test_sachmoi', { spmois: result, title: 'NXB Nhã Nam', pageTitle: 'NXB NHÃ NAM', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -101,13 +105,13 @@ const productController = {
         ]
     })
       .then(result => {
-        res.render('search', { spmois: result, title: 'Tìm kiếm'});
+        res.render('search', { spmois: result, title: 'Tìm kiếm', kh: getKh()});
       })
       .catch(err => {
         console.log(err);
       });
     },
-    async addNewProduct(req, res) {
+    /*async addNewProduct(req, res) {
         const sp = new SP({
             id: 'hoikivanitastap9',
             tensach: 'Hồi Kí Vanitas - Tập 9',
@@ -131,7 +135,7 @@ const productController = {
             img_small5: 'https://salt.tikicdn.com/cache/600x600/ts/product/71/bc/9f/5d9c724a8b852d7b4c5b396132bd255e.jpg',
             mota: 'Sau khi bị dụ đến cái bẫy do Mikhail giăng sẵn, Noé đã bị ép uống máu rồi nhìn vào kí ức của cậu ta. Trước mắt anh hiện lên chặng đường gặp gỡ và chia li giữa “Vampire Mặt Trăng Xanh”, Vanitas và Mikhail… Chỉ là Noé không được vạch trần bóng tối khuất sau vầng trăng ấy.<br><br>“Tôi nhất định phải hạ con Vampire đó”.',
          })
-        
+
           sp.save()
             .then(result => {
               res.send(result);
@@ -139,17 +143,58 @@ const productController = {
             .catch(err => {
               console.log(err);
             });
-    },
+    },*/
+
     async ttsp(req, res) {
         const url = req.params.id; 
         SP.findOne({id: url})
         .then(result => {
-            res.render('tt', {sp: result, title: result.tensach });
+          console.log(err);
+            res.render('tt', {sp: result, title: result.tensach , err: err, kh: getKh(), mail: getMail()});
+            err = '';
           })
           .catch(err => {
             console.log(err);
           });
-      }
+    },
+
+    /*-----Giỏ hàng-----*/
+    async themgio(req, res) {
+      const sl = parseInt(req.body.sl, 10);
+      const filter = { mail: req.body.mail, masp: req.body.masp};
+
+      Cart.findOne(filter)
+      .then(result => {
+        if (result != null)
+        {
+          Cart.findOneAndUpdate(filter, {sl: result.sl+sl}, { new: true })
+          .then(updatedRecord => { 
+              err = 'No';           
+              res.redirect(`/main/${req.body.id}`);
+          })
+          .catch(err => {
+            err = 'Yes';
+            res.redirect(`/main/${req.body.id}`);
+          });
+        }
+        else
+        {
+          const cart = new Cart({ mail: req.body.mail, masp: req.body.masp, sl: req.body.sl});            
+          cart.save()
+            .then(savedCart => {
+              err = 'No';             
+              res.redirect(`/main/${req.body.id}`);
+            })
+            .catch(err => {
+              err = 'Yes';
+              res.redirect(`/main/${req.body.id}`);
+            });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
 }
 
 module.exports = productController;

@@ -1,0 +1,458 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.5px;
+    font-size: 20px;
+    font-family: Helvetica Neue, sans-serif;
+    color: #737373;
+    font-weight: 300;
+    box-sizing: border-box;
+}
+div
+{
+    display: block;
+}
+a
+{
+    background: transparent;
+    text-decoration: none;
+    color: #338dbc;
+    transition: color 0.2s ease-in-out;
+}
+button
+{
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: middle;
+    text-transform: none;
+    overflow: visible;
+    cursor: pointer;
+    color: #fff;
+    background: darkorchid;
+    border: none;
+}
+
+.pay
+{
+    flex-direction: row-reverse;
+    display: flex;
+    flex: 1 0 auto;
+    overflow-x: hidden;
+
+    padding: 0 5%;
+    width: 95%;
+    max-width: 100em;
+    zoom: 1;
+
+    margin-top: 120px;
+    margin-bottom: 50px;
+}
+.sidebar
+{
+    padding-top: 4em;    
+    width: 38%;
+    padding-left: 2%;
+    background-position: left top;
+    float: right;
+    position: relative;
+    color: #717171;
+}
+.sidebar .sidebar-product
+{
+    padding-top: 0;
+    border-top: none;
+    padding-bottom: 1em;
+    border-color: #e1e1e1;
+}
+table {
+    display: table;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-color: gray;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 1em;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+td:first-child, th:first-child {
+    padding-left: 0;
+    text-align: left;
+}
+td {
+    padding: 0;
+    display: table-cell;
+    vertical-align: inherit;
+    padding-left: 1em;
+}
+td:last-child, th:last-child {
+    text-align: right;
+}
+.product-thumbnail {
+    width: 5em;
+    height: 5em;
+    border-radius: 8px;
+    background: inherit;
+    position: relative;
+}
+.product-thumbnail .product-thumbnail-con
+{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.1) inset;
+    
+}
+.product-thumbnail .product-thumbnail-con .product-thumbnail-img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+}
+img
+{
+    border: 0;
+    max-width: 100%;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
+.product-sl
+{
+    font-size: 0.85714em;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 0.15em 0.65em;
+    border-radius: 2em;
+    background-color: rgba(153,153,153,0.9);
+    color: #fff;
+    position: absolute;
+    right: -0.75em;
+    top: -0.75em;
+    z-index: 2;
+}
+.product-ten
+{
+    width: 100%;
+}
+.product-ten .tensp
+{
+    display: block;
+    font-weight: 500;
+    color: #4b4b4b;
+}
+.product-price
+{
+    white-space: nowrap;
+}
+.product-price .giasp
+{
+    font-weight: 500;
+    color: #4b4b4b;
+}
+
+/* sidebar-discount*/
+.sidebar-discount, .sidebar-login
+{
+    border-top: 1px solid;
+    padding-top: 1.5em;
+    padding-bottom: 1em;
+    border-color: #c1c1c1;
+}
+.sidebar-discount #form_discount_add
+{
+    display: flex;
+}
+.input_field
+{
+    flex-grow: 1;
+    position: relative;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.1) inset;
+    transition: all 0.2s ease-out;
+    background-color: rgb(236, 246, 255);
+    color: #333333;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.7em 2.5em 0.7em 0.8em;
+    word-break: normal;
+    font: inherit;
+    margin: 0;
+    border: none;
+    line-height: normal;
+    border-radius: 10px;
+}
+#discount_btn
+{
+    width: 100px;
+    margin-left: 0.9em;
+    white-space: nowrap;
+    padding: 0 10px;   
+    border-radius: 4px;
+    background: #338dbc;
+}
+/*login*/
+
+.login
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.sidebar-login h2
+{
+    color: #333;
+    margin-right: 5px;
+    font-size: 1.2em;
+    font-weight: normal;
+    margin: 0;
+    line-height: 1em;
+}
+#login_btn
+{
+    display: inline-block;
+    border-radius: 4px;
+    font-weight: 500;
+    padding: 13px 10px;
+    background: #338dbc;
+    color: #fff;
+    width: 100px;
+    text-align: center;
+}
+/*total*/
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+.sidebar-total
+{
+    border-top: 1px solid;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-color: #c1c1c1;
+}
+.total-line td {
+    padding-top: 0.75em;
+}
+.order-summary-emphasis {
+    font-weight: 500;
+    color: #4b4b4b;
+}
+.total-line-table-footer {
+    white-space: nowrap;
+}
+.total-line-table-footer .total-line td::before {
+    background-color: #c1c1c1;
+    content: '';
+    position: absolute;
+    top: 1.5em;
+    left: 0;
+    width: 100%;
+    height: 1px;
+}
+.total-line-table-footer .total-line td {
+    padding-top: 2.5em;
+    position: relative;
+}
+.payment-due-label .payment-due-label-total {
+    font-size: 30px;
+    color: #4b4b4b;
+}
+.payment-due .payment-due-currency {
+    font-size: 18px;
+    vertical-align: 0.2em;
+    margin-right: 0.5em;
+    color: #969696;
+}
+.payment-due .payment-due-price {
+    font-size: 35px;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    color: #4b4b4b;
+    line-height: 1em;
+}
+
+/*main*/
+.main
+{
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    padding-top: 2em;
+    width: 52%;
+    padding-right: 4%;
+}
+/*main-header*/
+.main-header
+{
+    padding-bottom: 1em;
+}
+.logo-text
+{
+    color: #333333;
+    font-size: 2em;
+    font-weight: normal;
+    margin: 0;
+    line-height: 1em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.url
+{
+    display: inline-block;
+}
+.url-item
+{
+    list-style: none;
+    display: inline-block;
+    color: #999999;
+}
+.url-item.item-current
+{
+    font-weight: 500;
+    color: #4d4d4d;
+}
+
+/*main-content*/
+.step-sections {
+    position: relative;
+    z-index: 3;
+}
+.section-title
+{
+    color: #333333;
+    font-size: 1.28571em;
+    font-weight: normal;
+    margin-bottom: 1em;
+    line-height: 1em;
+}
+.section-content-text
+{
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+}
+.input
+{
+    width: 100%;
+    float: left;
+    padding: 0.45em;
+    box-sizing: border-box;
+}
+.input1
+{
+    width: 66.66667% !important;
+    float: left;
+    padding: 0.45em;
+    box-sizing: border-box;
+}
+.input2
+{
+    width: 33.33333% !important;
+    float: left;
+    padding: 0.45em;
+    box-sizing: border-box;
+}
+.address-ship
+{
+    zoom: 1;
+    margin-bottom: 2em;
+    position: relative;
+}
+/*step-footer*/
+.step-footer
+{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-top: 1.5em;
+    z-index: 2;
+    position: relative;
+    padding-right: 0.45em;
+}
+#thanhtoan_btn
+{
+    display: inline-block;
+    border-radius: 4px;
+    padding: 13px 10px;
+    background: #338dbc;
+    color: #fff;
+    width: 200px;
+    text-align: center;
+}
+.step-footer-previous-link {
+    flex: 1 1 auto;
+    margin-right: 1em;
+    float: left;
+    display: block;
+    padding-left: 0.45em;
+}
+
+/*Thanh toán 2*/
+.radio-label, .two-page
+{
+    display: flex !important;
+    cursor: pointer !important;
+    align-items: center;
+    padding: 1em 1.2em;
+    width: auto;
+}
+.content-box {
+    box-shadow: 0 0 0 1px #d9d9d9;
+    border-radius: 10px;
+    background: rgb(236, 245, 255);
+    color: #737373;
+}
+.radio-input
+{
+    display: flex;
+    align-self: center;
+    padding-right: 0.75em;
+    white-space: nowrap;
+}
+.input-radio
+{          
+    border-radius: 50%;
+    width: 18px;
+    height: 18px; 
+}
+#section-payment-method
+{
+    position: relative;
+    padding-top: 2em;
+}
+.content-box-row:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top: none !important;
+}
+.content-box .content-box-row {
+    display: table;
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid #d9d9d9;
+    zoom: 1;
+}
+.radio-content-input {
+    display: flex;
+    align-items: center;
+}
+.radio-content-input .main-img {
+    margin-right: 10px;
+    display: flex;
+    align-self: center;
+    width: 40px;
+    height: 40px;
+}
