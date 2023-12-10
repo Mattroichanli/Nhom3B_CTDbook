@@ -5,8 +5,93 @@
     <body>
         scroll-padding-top: 123px;
         <div class="desktop"><div class="div"></div></div>
+        <!--form bắt đầu từ đây-->
+        <form action="/main/<%= sp.id %>" method="post">
         <!-- toolbar -->
-        <%- include("./partials/toolbar.ejs") %>
+        <div class="box"> 
+            <img src="/image/Logo.png" onclick="location.href='/main'" alt=""> <!--! /*mới sửa onclick*/-->
+            <button id="menu" style="background: url(/image/toolbar_section/Category.png)"></button>
+            <div class="dropdown-content" id="myDropdown" style="display: none;"> <!--mới thêm style-->
+                <!-- Nội dung của dropdown sẽ được đặt ở đây -->
+                <a class="cate-item">VĂN HỌC</a>
+                <a href="/tieuthuyet">Tiểu thuyết</a>
+                <a href="/tntv">Truyện ngắn - Tản văn</a>
+                <a href="/lightnovel">Light Novel</a>
+                <a class="cate-item">THIẾU NHI</a>
+                <a href="/truyentranh">Truyện tranh</a>
+                <a class="cate-item">GIÁO KHOA - THAM KHẢO</a>
+                <a href="/sgk">Sách giáo khoa</a>
+                <a href="/luyenthi">Luyện thi THPT Quốc Gia</a>
+                <a class="cate-item" href="/sachmoi">SÁCH MỚI</a>
+                <a class="cate-item" href="/sachbanchay">SÁCH BÁN CHẠY</a>
+            </div>
+            <script>
+              // Lắng nghe sự kiện click trên button
+              document.getElementById("menu").addEventListener("click", function() {
+                // Lấy ra phần dropdown
+                var dropdown = document.getElementById("myDropdown");
+                // Kiểm tra xem dropdown hiện đang ẩn hay hiển thị
+                if (dropdown.style.display === "none") {
+                    // Nếu đang ẩn, thì hiển thị dropdown bằng cách thêm class "show" vào nó
+                    dropdown.style.display = "block";
+                } else {
+                    // Nếu đang hiển thị, thì ẩn dropdown bằng cách loại bỏ class "show" khỏi nó
+                    dropdown.style.display = "none";
+                }
+            });  
+            </script>
+            <input id="searchInput" placeholder="  Tìm kiếm sản phẩm...">
+            <button id="search" style="background: url(/image/toolbar_section/Search.png)"></button>
+            <script>
+                const searchButton = document.getElementById("search");
+            
+                if (searchButton) {
+                    searchButton.addEventListener("click", function() {
+                        const searchText = document.getElementById("searchInput").value;
+                        if (searchText !== '') {
+                            window.location.href = `/search/${encodeURIComponent(searchText)}`;
+                        }
+                    });
+                }
+            </script>
+            <div id="thong-bao">
+                <button type="button" style="background: url(/image/toolbar_section/Notification.png)"></button>
+                <p>Thông báo</p>
+            </div>
+            <div id="gio-hang">
+                <button type="button" style="background: url(/image/toolbar_section/Shopping-Cart.png)" onclick="location.href='/giohang'"></button>
+                <p>Giỏ hàng</p>
+            </div>
+        
+            <%if (kh != '') { %>
+                <div class="dropdown" id="tai-khoan">
+                   <a href="/main">
+                       <div class="container">
+                           <div class="dropbtn" style="background: url(/image/toolbar_section/Person.png) no-repeat"></div>
+                           <div class="accountTitle"><%= kh %></div>
+                           <input type="hidden" name="mail" value="<%= mail %>" id="mail">                           
+                        </div>
+                   </a>
+                   <div class="dropdown-content">
+                       <a href="/login">Đăng xuất</a>
+                   </div>
+               </div>
+               <% } else { %>
+               <div class="dropdown" id="tai-khoan">
+                   <a href="/login">
+                       <div class="container">
+                           <div class="dropbtn" style="background: url(/image/toolbar_section/Person.png) no-repeat"></div>
+                           <div class="accountTitle">Tài khoản</div>
+                           <input type="hidden" name="mail" value="<%= mail %>" id="mail">
+                       </div>
+                   </a>
+                   <div class="dropdown-content">
+                       <a href="/login">Đăng nhập</a>
+                       <a href="/signup">Đăng ký</a>
+                   </div>
+               </div>
+            <% } %>
+        </div>
 
         <!--  -->
         <section>
@@ -46,7 +131,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product_detail">
+                        <div class="product_detail" >
                             <h1><%= title %></h1>
                             <div class="gia">
                                 <span class="giagiam"><%= sp.giagiam %></span>
@@ -57,6 +142,7 @@
                                 <div class="masp" style="margin-bottom: 15px;">
                                     <span>Mã sản phẩm: </span>
                                     <span><%= sp.masp %></span>
+                                    <input type="hidden" name="masp" id="masp" value="<%= sp.masp %>">
                                 </div>
                                 <div class="nxb" style="margin-bottom: 15px;">
                                     <span>Nhà xuất bản: </span>
@@ -74,21 +160,39 @@
                             <div id="sl">
                                 <label>Số lượng: </label>
                                 <div class="sl_box">
-                                    <a class="sub">&#8722;</a>
-                                    <input id="so" maxvalue="999" minvalue="1" align="center" value="1">
-                                    <a class="add">&#43;</a>
+                                    <a class="sub" onclick="decreaseQuantity()">&#8722;</a>
+                                    <input name="sl" id="so" maxvalue="999" minvalue="1" align="center" value="1">
+                                    <a class="add" onclick="increaseQuantity()">&#43;</a>
                                 </div>
+                                <script>
+                                    function increaseQuantity() {
+                                      var inputElement = document.getElementById("so");
+                                      var currentValue = parseInt(inputElement.value, 10);
+                                      if (currentValue < 999) {
+                                        inputElement.value = currentValue + 1;
+                                      }
+                                    }
+                                  
+                                    function decreaseQuantity() {
+                                      var inputElement = document.getElementById("so");
+                                      var currentValue = parseInt(inputElement.value, 10);
+                                      if (currentValue > 1) {
+                                        inputElement.value = currentValue - 1;
+                                      }
+                                    }
+                                </script>
                             </div>                            
                             <div class="add_or_buy">
-                                <button type="button" title="Thêm giỏ hàng" class="add">
+                                <button type="button" title="Thêm giỏ hàng" class="add" id="add" onclick="validateEmail()">
                                     <span class="cart_icon"></span>
                                     <span>Thêm vào giỏ</span>
+                                    <input type="hidden" name="id" value="<%= sp.id %>">
                                 </button>
-                                <button type="button" title="Mua ngay" class="buy">
+                                <button type="button" title="Mua ngay" onclick="location.href='/thanhtoan'" class="buy" id="buy">
                                     <span>Mua ngay</span>
-                                </button>
+                                </button>                                                               
                             </div>
-                        </div>
+                        </div>    
                     </div>
                 </div>  
             </section>
@@ -155,6 +259,88 @@
                 </div>  
             </section>
         </section>
+        
+        </form>
+
+        <!--Thông báo-->
+        <div id="notification-err"  style="display: none;">
+            <div class="thongbao">
+                <div class="thongbao-title">
+                    <p>Vui lòng Đăng nhập hoặc Đăng kí</p>
+                    <button class="close" onclick="closeNotification()"><img src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg?q="></button>
+                </div>                
+                <img src="https://static.vecteezy.com/system/resources/previews/017/178/032/original/round-cross-mark-symbol-with-transparent-background-free-png.png">
+            </div>
+        </div>
+        <div id="notification-tc" style="display: none;">
+            <div class="thongbao">
+                <div class="thongbao-title">
+                    <p>Thêm vào giỏ hàng thành công</p>
+                    <button class="close" onclick="closeNotification()"><img src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg?q="></button>
+                </div>                
+                <img src="https://static.vecteezy.com/system/resources/previews/017/177/933/non_2x/round-check-mark-symbol-with-transparent-background-free-png.png">
+            </div>
+        </div>
+        <div id="notification-tb" style="display: none;">
+            <div class="thongbao">
+                <div class="thongbao-title">
+                    <p>Thêm vào giỏ hàng thất bại</p>
+                    <button class="close" onclick="closeNotification()"><img src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg?q="></button>
+                </div>                
+                <img src="https://static.vecteezy.com/system/resources/previews/017/178/032/original/round-cross-mark-symbol-with-transparent-background-free-png.png">
+            </div>
+        </div>
+        <!------------>
+
+        <%if (err === 'No') {%>
+            <script>
+                var notification = document.getElementById('notification-tc');
+                if (notification) {
+                notification.style.display = 'flex';
+                setTimeout(function () {
+                    notification.style.display = 'none';
+                }, 10000);
+                }
+            </script>
+        <% } else if (err === 'Yes') {%> 
+            <script>
+                var notification = document.getElementById('notification-tb');
+                if (notification) {
+                notification.style.display = 'flex';
+                setTimeout(function () {
+                    notification.style.display = 'none';
+                }, 10000); // Ẩn thông báo
+                }
+            </script>
+        <% } %>     
+
+        <script>
+            function validateEmail() {
+                var emailInput = document.getElementById("mail");  
+                var notification_err = document.getElementById("notification-err");           
+        
+                // Kiểm tra nếu giá trị của email không phải là null hoặc rỗng
+                if (emailInput.value.trim() === '') {
+                    notification_err.style.display = "flex";
+                    setTimeout(function () {
+                        notification_err.style.display = 'none';
+                    }, 10000);
+                } 
+                else {
+                    var addButton = document.getElementById("add");           
+                    addButton.type = "submit";
+                }
+            }
+
+            function closeNotification() {
+                var notification_tc = document.getElementById("notification-tc");
+                var notification_tb = document.getElementById("notification-tb");
+                var notification_err = document.getElementById("notification-err");
+                notification_tc.style.display = "none";
+                notification_tb.style.display = "none";
+                notification_err.style.display = "none";
+            }
+        </script>
 
         <!--footer-->
         <%- include("./partials/footer.ejs") %>

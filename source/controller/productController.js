@@ -1,10 +1,14 @@
 const SP = require('../model/ttsp');
+const Cart = require('../model/giohang');
+const { userController, setKh, getKh, setMail, getMail} = require('./userController');
+
+let err = ''
 
 const productController = {
     async sachmoi(req, res) {
       const latestProducts = await SP.find()
                                      .sort({ createdAt: -1 }) // Sắp xếp theo trường createdAt giảm dần để lấy sản phẩm mới nhất
-      res.render('test_sachmoi', { spmois: latestProducts, title: 'Sách mới', pageTitle: 'SÁCH MỚI'});
+      res.render('test_sachmoi', { spmois: latestProducts, title: 'Sách mới', pageTitle: 'SÁCH MỚI', kh: getKh()});
     },
     async sachbanchay(req, res) {
       const latestProducts = await SP.find()
@@ -14,7 +18,7 @@ const productController = {
     async tieuthuyet(req, res) {
       SP.find({danhmuc: 'tieuthuyet'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Tiểu thuyết', pageTitle: 'TIỂU THUYẾT'});
+          res.render('test_sachmoi', { spmois: result, title: 'Tiểu thuyết', pageTitle: 'TIỂU THUYẾT', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -23,7 +27,7 @@ const productController = {
     async tntv(req, res) {
       SP.find({danhmuc: 'tntv'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Truyện ngắn - Tản văn', pageTitle: 'TRUYỆN NGẮN-TẢN VĂN'});
+          res.render('test_sachmoi', { spmois: result, title: 'Truyện ngắn - Tản văn', pageTitle: 'TRUYỆN NGẮN-TẢN VĂN', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -32,7 +36,7 @@ const productController = {
     async lightnovel(req, res) {
       SP.find({danhmuc: 'lightnovel'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Light novel', pageTitle: 'LIGHT NOVEL'});
+          res.render('test_sachmoi', { spmois: result, title: 'Light novel', pageTitle: 'LIGHT NOVEL', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -41,7 +45,7 @@ const productController = {
     async truyentranh(req, res) {
       SP.find({danhmuc: 'truyentranh'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Truyện tranh', pageTitle: 'TRUYỆN TRANH'});
+          res.render('test_sachmoi', { spmois: result, title: 'Truyện tranh', pageTitle: 'TRUYỆN TRANH', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -50,7 +54,7 @@ const productController = {
     async sgk(req, res) {
       SP.find({danhmuc: 'sgk'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Sách giáo khoa', pageTitle: 'SÁCH GIÁO KHOA'});
+          res.render('test_sachmoi', { spmois: result, title: 'Sách giáo khoa', pageTitle: 'SÁCH GIÁO KHOA', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -59,7 +63,7 @@ const productController = {
     async luyenthi(req, res) {
       SP.find({danhmuc: 'luyenthi'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'Luyện thi', pageTitle: 'SÁCH LUYỆN THI'});
+          res.render('test_sachmoi', { spmois: result, title: 'Luyện thi', pageTitle: 'SÁCH LUYỆN THI', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -68,7 +72,7 @@ const productController = {
     async nxbkimdong(req, res) {
       SP.find({nxb: 'Kim Đồng'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'NXB Kim Đồng', pageTitle: 'NXB KIM ĐỒNG'});
+          res.render('test_sachmoi', { spmois: result, title: 'NXB Kim Đồng', pageTitle: 'NXB KIM ĐỒNG', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -77,7 +81,7 @@ const productController = {
     async nxbnhanam(req, res) {
       SP.find({nxb: 'Nhã Nam'})
       .then(result => {
-          res.render('test_sachmoi', { spmois: result, title: 'NXB Nhã Nam', pageTitle: 'NXB NHÃ NAM'});
+          res.render('test_sachmoi', { spmois: result, title: 'NXB Nhã Nam', pageTitle: 'NXB NHÃ NAM', kh: getKh()});
         })
         .catch(err => {
           console.log(err);
@@ -99,7 +103,7 @@ const productController = {
       // Tìm kiếm trong collection
       await SP.find(searchQuery)
       .then(result => {
-        res.render('search', { spmois: result, title: 'Tìm kiếm', key:name});
+        res.render('search', { spmois: result, title: 'Tìm kiếm', key:name, kh: getKh()});
       })
       .catch(err => {
         console.log(err);
@@ -142,12 +146,78 @@ const productController = {
         const url = req.params.id; 
         SP.findOne({id: url})
         .then(result => {
-            res.render('tt', {sp: result, title: result.tensach });
+            res.render('tt', {sp: result, title: result.tensach , err: err, kh: getKh(), mail: getMail()});
+            err = '';
           })
           .catch(err => {
             console.log(err);
           });
-      }
+    },
+
+    /*-----Giỏ hàng-----*/
+    async themgio(req, res) {
+      const sl = parseInt(req.body.sl, 10);
+      const filter = { mail: req.body.mail, masp: req.body.masp};
+
+      Cart.findOne(filter)
+      .then(result => {
+        if (result != null)
+        {
+          Cart.findOneAndUpdate(filter, {sl: result.sl+sl}, { new: true })
+          .then(updatedRecord => { 
+              err = 'No';           
+              res.redirect(`/main/${req.body.id}`);
+          })
+          .catch(err => {
+            err = 'Yes';
+            res.redirect(`/main/${req.body.id}`);
+          });
+        }
+        else
+        {
+          const cart = new Cart({ mail: req.body.mail, masp: req.body.masp, sl: req.body.sl});            
+          cart.save()
+            .then(savedCart => {
+              err = 'No';             
+              res.redirect(`/main/${req.body.id}`);
+            })
+            .catch(err => {
+              err = 'Yes';
+              res.redirect(`/main/${req.body.id}`);
+            });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }, 
+    async giohang(req, res) {
+      const mail = getMail();
+      if (mail == '') {
+        err = 'No Mail';
+        res.render('giohang', {title: 'Giỏ hàng', err: err, kh: getKh()});
+        err = '';
+      } 
+      else {
+        let allSP = [];
+        Cart.find({mail: mail})
+        .then(result => {
+          return Promise.all(result.map(async r => {
+            // Thực hiện cuộc gọi để lấy thông tin sản phẩm và giữ lại thông tin số lượng
+            const infoSP = await SP.findOne({ masp: r.masp });
+            const infoFull = { ...infoSP.toObject(), sl: r.sl };
+            return infoFull;
+          }));
+        })
+        .then(resultsArray => {
+          allSP = resultsArray;
+          res.render('giohang', { sps: allSP, title: 'Giỏ hàng', err: err, kh: getKh()});
+        })  
+        .catch(err => {
+          console.log(err);
+        });
+      }          
+  },
 }
 
 module.exports = productController;

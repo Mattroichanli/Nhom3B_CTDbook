@@ -1,7 +1,7 @@
 <div class="box"> 
     <img src="/image/Logo.png" onclick="location.href='/main'" alt=""> <!--! /*mới sửa onclick*/-->
     <button id="menu" style="background: url(/image/toolbar_section/Category.png)"></button>
-    <div class="dropdown-content" id="myDropdown">
+    <div class="dropdown-content" id="myDropdown" style="display: none;"> <!--mới thêm style-->
         <!-- Nội dung của dropdown sẽ được đặt ở đây -->
         <a class="cate-item">VĂN HỌC</a>
         <a href="/tieuthuyet">Tiểu thuyết</a>
@@ -49,20 +49,34 @@
         <p>Thông báo</p>
     </div>
     <div id="gio-hang">
-        <button style="background: url(/image/toolbar_section/Shopping-Cart.png)"></button>
+        <button style="background: url(/image/toolbar_section/Shopping-Cart.png)" onclick="location.href='/giohang'"></button>
         <p>Giỏ hàng</p>
     </div>
 
-    <div class="dropdown" id="tai-khoan">
-        <a href="/login">
-            <div class="container">
-                <div class="dropbtn" style="background: url(/image/toolbar_section/Person.png) no-repeat"></div>
-                <div class="accountTitle">Tài khoản</div>
-            </div>
-        </a>
-        <div class="dropdown-content">
-            <a href="/login">Đăng nhập</a>
-            <a href="/signup">Đăng ký</a>
-        </div>
-    </div>
-</div>
+    <%if (kh != '') { %>
+        <div class="dropdown" id="tai-khoan">
+           <a href="/main">
+               <div class="container">
+                   <div class="dropbtn" style="background: url(/image/toolbar_section/Person.png) no-repeat"></div>
+                   <div class="accountTitle"><%= kh %></div>
+               </div>
+           </a>
+           <div class="dropdown-content">
+               <a href="/login">Đăng xuất</a>
+           </div>
+       </div>
+       <% } else { %>
+       <div class="dropdown" id="tai-khoan">
+           <a href="/login">
+               <div class="container">
+                   <div class="dropbtn" style="background: url(/image/toolbar_section/Person.png) no-repeat"></div>
+                   <div class="accountTitle">Tài khoản</div>
+               </div>
+           </a>
+           <div class="dropdown-content">
+               <a href="/login">Đăng nhập</a>
+               <a href="/signup">Đăng ký</a>
+           </div>
+       </div>
+       <% } %>
+   </div>

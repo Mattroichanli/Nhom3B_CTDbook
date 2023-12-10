@@ -13,8 +13,13 @@ router.get("/lightnovel", productController.lightnovel);
 router.get("/truyentranh", productController.truyentranh);
 router.get("/sgk", productController.sgk);
 router.get("/luyenthi", productController.luyenthi);
-router.get("/add-sp", productController.addNewProduct);
+/*router.get("/add-sp", productController.addNewProduct);*/
 router.get("/main/:id", productController.ttsp);
 router.get("/search/:name", productController.search);
+
+
+/*mới*/
+router.get("/giohang", productController.giohang);
+router.post("/main/:id", productController.themgio); /*post*/
 
 module.exports = router

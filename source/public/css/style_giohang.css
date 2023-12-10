@@ -1,0 +1,297 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.5px;
+    font-size: 24px;
+    font-family: Roboto;
+    color: #333333;
+    font-weight: 300;
+    box-sizing: border-box;
+}
+div
+{
+    display: block;
+}
+a
+{
+    background: transparent;
+}
+
+
+.cart
+{
+    display: block;
+    justify-content: center;
+    width: 95%;
+    margin-top: 120px;
+    margin-bottom: 50px;
+    padding: 50px;
+}
+.cart h1
+{
+    padding: 0px 0px 15px 0px;
+    margin: 0px 0px 15px 0px;
+    border-bottom: 1px solid #c1c1c1;
+    text-transform: uppercase !important;
+    font-family: "Baomoi-SemiBold" !important;
+    font-size: 40px;
+    line-height: normal;
+    font-weight: bold;
+}
+table 
+{
+    width: 100%;
+    margin-bottom: 1em;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: table;
+    text-indent: initial;
+    border-color: gray;
+}
+.cart_row:first-child
+{
+    padding-top: 0;
+    margin-top: 0;
+}
+.cart_row
+{
+    position: relative;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #c1c1c1;
+}
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+th {
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: bold;
+    text-align: -internal-center;
+}
+.cart_table th
+{
+    padding: 30px 15px;
+    border: none;
+    font-weight: normal;
+}
+.text-center {
+    text-align: center !important;
+}
+.text-right {
+    text-align: right !important;
+}
+
+/*tbody*/
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+.cart_table td
+{
+    padding: 30px 15px;
+    border: none;
+    text-align: left;
+}
+td {    
+    display: table-cell;
+    vertical-align: inherit;
+    padding: 15px;
+    border: 1px solid #c1c1c1;
+}
+.cart__image {
+    display: block;
+}
+a
+{
+    color: #d51c24;
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+}
+.cart_image img {
+    display: block;
+    max-width: 100%;
+    width: 215px;
+}
+img {
+    vertical-align: middle;
+    border: 0 none;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
+.h4 {
+    font-size: 1.2em;
+    display: block;
+    font-family: Roboto;
+    font-weight: 700;
+    margin: 0 0 0.5em;
+    line-height: 1.4;
+}
+.h3 , .dongia
+{
+    font-size: 1.21em;
+    display: block;
+    font-family: Roboto;
+    font-weight: 700;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+.cart__remove {
+    display: block;
+}
+/*box_sl*/
+
+
+.sl_box
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: center;
+    border: 1px solid #c1c1c1;
+    border-radius: 4px;
+    height: 32px;
+}
+.sl_box .sub, .sl_box .add
+{
+    padding: 0px 15px;
+    cursor: pointer;
+    user-select: none;
+    height: 100%;
+    transition: all 0.3s;
+    text-align: center;
+    color: #646464;
+}
+.so
+{
+    background-color: inherit;
+    border: none !important;
+    width: 2em !important;
+    color: #0D0E0F;
+    font-size: 20px;
+    height: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/*ghi chú*/
+.grid{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: -30px;
+    margin: 30px 0 75px;
+    padding-top: 30px;
+}
+.grid_item {
+    box-sizing: border-box;
+    float: left;
+    min-height: 1px;
+    padding-left: 30px;
+    vertical-align: top;
+    width: 100%;
+}
+.left
+{
+    width: 65%;
+}
+textarea.input-full
+{
+    width: 100%;
+}
+textarea
+{
+    border: 1px solid #c1c1c1;
+    max-width: 100%;
+    padding: 8px 10px;
+    border-radius: 0px;
+}
+
+/*tạm tính*/
+p {
+    margin: 0 0 15px 0;
+}
+.right
+{
+    width: 35%;
+}
+.cart_subtotal {
+    margin: 0 0 0 10px;
+    display: inline;
+
+    /*h3*/
+    font-size: 1.21em;
+    display: block;
+    font-family: Roboto;
+    font-weight: 700;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+.btn-cart
+{
+    vertical-align: middle;
+    text-transform: none;
+    overflow: visible;
+    cursor: pointer;
+    color: #fff;
+
+    width: 130px;
+    text-align: center;
+    white-space: nowrap;
+    padding: 8px;   
+    border-radius: 4px;
+    background: #338dbc;
+    border: none;
+}
+
+/*No Mail*/
+.cart-ui-content {
+    display: flex;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #fff;
+    flex: 1;
+    border-radius: 8px;
+
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    min-height: 300px;
+
+}
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.icon-emty img
+{
+    width: 160px;
+    height: 160px;
+}
+.cart-emty p
+{
+    margin: 20px 0 0 0 !important;
+}
+.cart-emty a
+{
+    font-style: italic;
+}

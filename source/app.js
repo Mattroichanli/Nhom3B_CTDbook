@@ -53,18 +53,64 @@ connect().then( () => {
    app.get('/add-sp', productRoute)
    app.get('/search/:name', productRoute)
    app.get('/main/:id', productRoute)
+
+   /* mới */
+   app.get('/giohang', productRoute)
+   app.post('/main/:id', productRoute)
+
  }).catch((error) => {
    console.error(error);
  });
-/*
+
+
 //TEST
-app.get('/try', (req, res) => {        
-  SP.find({danhmuc: 'sachmoi'})
-  .then(result => {
-      res.send(result);
-      //res.render('tt', { sp: result, title: result.tensach });
+const Cart = require('./model/giohang');
+app.get('/try', async (req, res) => { 
+  mail = 'doanthianhduong.20@gmail.com';
+  masp = '0003';
+  sl = 1;
+  Cart.findOne({ mail, masp})
+    .then(result => {
+      console.log(result);
+      if (result != null)
+      {
+        Cart.findOneAndUpdate({mail,masp}, {sl: result.sl+sl}, { new: true })
+        .then(updatedRecord => {
+          if (updatedRecord) {
+            // Bản ghi đã được cập nhật
+            res.send(updatedRecord);
+          } else {
+            // Không tìm thấy bản ghi để cập nhật
+            res.send('Không tìm thấy bản ghi để cập nhật');
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      }
+      else
+      {
+        const cart = new Cart({mail,masp,sl});            
+        cart.save();
+      }
     })
     .catch(err => {
       console.log(err);
     });
+});
+
+
+/*
+app.get('/giohang', (req, res) => {
+  res.render('giohang.ejs', {title: 'Giỏ hàng'});
+  err = '';
+});
+app.get('/thanhtoan1', (req, res) => {
+  res.render('thanhtoan1.ejs', {title: 'Thanh toán'});
+  err = '';
+});
+
+app.get('/thanhtoan2', (req, res) => {
+  res.render('thanhtoan2.ejs', {title: 'Thanh toán'});
+  err = '';
 });*/
