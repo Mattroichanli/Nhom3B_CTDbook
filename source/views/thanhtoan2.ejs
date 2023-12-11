@@ -10,75 +10,14 @@
 
         <!--  -->
         <div class="pay">
-            <div class="sidebar">
-                <div class="sidebar-product">
-                    <table class="product-table">
-                        <tr class="product-item">
-                            <td class="product-img">
-                                <div class="product-thumbnail">
-                                    <div class="product-thumbnail-con">
-                                        <img class="product-thumbnail-img" alt="Bố ngồi cùng con nhé!" src="image/sachmoi1.jpg"> 
-                                    </div>
-                                    <span class="product-sl">1</span>
-                                </div>
-                            </td>
-                            <td class="product-ten">
-                                <span class="tensp">Bố ngồi cùng con nhé!</span>
-                            </td>
-                            <td class="product-price">
-                                <span class="giasp">60.000đ</span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="sidebar-discount">
-                    <form id="form_discount_add" method="POST">
-                        <input type="text" placeholder="Mã giảm giá" name="discount.code" class="input_field">
-                        <button type="submit" id="discount_btn">Sử dụng</button>
-                    </form>
-                </div>
-                <div class="sidebar-login">
-                    <div class="login">
-                        <h2>Khách hàng thân thiết</h2>
-                        <button type="button" href="./thanhtoan.html" id="login_btn">Login</button>
-                    </div>
-                </div>
-                <div class="sidebar-total">
-                    <table class="total-line-table">
-                        <tr class="total-line total-line-subtotal">
-                            <td class="total-line-name">Tạm tính</td>
-                            <td class="total-line-price">
-                                <span class="order-summary-emphasis">58,500₫</span>
-                            </td>
-                        </tr>
-                        <tr class="total-line total-line-shipping">
-                            <td class="total-line-name">Phí ship</td>
-                            <td class="total-line-price">
-                                <span class="order-summary-emphasis">35,000Đ</span>
-                            </td>
-                        </tr>
-                        <tfoot class="total-line-table-footer">
-                            <tr class="total-line">
-                                <td class="total-line-name payment-due-label">
-                                    <span class="payment-due-label-total">Tổng tiền</span>
-                                </td>
-                                <td class="total-line-name payment-due">
-                                    <span class="payment-due-currency">VND</span>
-                                    <span class="payment-due-price">58,500₫</span>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
             <div class="main">
                 <div class="main-header">
                     <a href="/" class="logo">
                         <h1 class="logo-text">Tiệm sách CTD Books</h1>
                     </a>
                     <ol class="url">
-                        <li class="url-item"> <a href="index.html" title="Giỏ hàng">Giỏ hàng</a> <span>&#62;</span> </li>
-                        <li class="url-item"> <a href="thanhtoan1.html" title="TTVC">Thông tin vận chuyển</a> <span>&#62;</span> </li>
+                        <li class="url-item"> <a onclick="location.href='/giohang'" title="Giỏ hàng">Giỏ hàng</a> <span>&#62;</span> </li>
+                        <li class="url-item"> <a onclick="location.href='/thanhtoan'" title="TTVC">Thông tin vận chuyển</a> <span>&#62;</span> </li>
                         <li class="url-item item-current"> Thanh toán </li>
                     </ol>
                 </div>
@@ -147,7 +86,7 @@
                 </div>
                 <div class="step-footer">
                     <button type="submit" id="thanhtoan_btn">Đặt hàng</button>
-                    <a class="step-footer-previous-link" href="giohang.html">Giỏ hàng</a>
+                    <a class="step-footer-previous-link" onclick="location.href='/giohang'">Giỏ hàng</a>
                 </div>
                 </div>
             </div>

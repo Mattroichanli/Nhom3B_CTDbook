@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser'); /* mới-muangay */
 
 const connect = require('./database/database')
 
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json()); /* mới-muangay */
 
 // connect to mongodb & listen for requests
 connect().then( () => {
@@ -57,7 +59,13 @@ connect().then( () => {
    /* mới */
    app.get('/giohang', productRoute)
    app.post('/main/:id', productRoute)
-
+   app.delete('/giohang/:masp', productRoute)
+   app.post('/giohang',productRoute)
+   app.get('/thanhtoan', productRoute)
+   app.post('/thanhtoan1', productRoute) /*muangay*/
+   app.post('/thanhtoan', productRoute) /*magiagia*/
+   app.post('/thanhtoan2', productRoute) /*thanhtoan*/
+   app.get('/thanhtoan2', productRoute) /*thanhtoan step2*/
  }).catch((error) => {
    console.error(error);
  });
@@ -65,37 +73,21 @@ connect().then( () => {
 
 //TEST
 const Cart = require('./model/giohang');
+const Don = require('./model/magiamgia');
 app.get('/try', async (req, res) => { 
-  mail = 'doanthianhduong.20@gmail.com';
-  masp = '0003';
-  sl = 1;
-  Cart.findOne({ mail, masp})
-    .then(result => {
-      console.log(result);
-      if (result != null)
-      {
-        Cart.findOneAndUpdate({mail,masp}, {sl: result.sl+sl}, { new: true })
-        .then(updatedRecord => {
-          if (updatedRecord) {
-            // Bản ghi đã được cập nhật
-            res.send(updatedRecord);
-          } else {
-            // Không tìm thấy bản ghi để cập nhật
-            res.send('Không tìm thấy bản ghi để cập nhật');
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      }
-      else
-      {
-        const cart = new Cart({mail,masp,sl});            
-        cart.save();
-      }
+  const newDon = new Don({
+    ma: 'CT',
+    phantram: 10,
+    sl: 10,
+  });
+  
+  // Lưu đơn hàng vào cơ sở dữ liệu
+  newDon.save()
+    .then(savedDon => {
+      console.log('Đơn hàng đã được lưu:', savedDon);
     })
-    .catch(err => {
-      console.log(err);
+    .catch(error => {
+      console.error('Lỗi khi lưu đơn hàng:', error);
     });
 });
 

@@ -188,7 +188,7 @@
                                     <span>Thêm vào giỏ</span>
                                     <input type="hidden" name="id" value="<%= sp.id %>">
                                 </button>
-                                <button type="button" title="Mua ngay" onclick="location.href='/thanhtoan'" class="buy" id="buy">
+                                <button type="button" title="Mua ngay" class="buy" id="buy">
                                     <span>Mua ngay</span>
                                 </button>                                                               
                             </div>
@@ -317,7 +317,9 @@
         <script>
             function validateEmail() {
                 var emailInput = document.getElementById("mail");  
-                var notification_err = document.getElementById("notification-err");           
+                var notification_err = document.getElementById("notification-err"); 
+                
+                var addButton = document.getElementById("add");
         
                 // Kiểm tra nếu giá trị của email không phải là null hoặc rỗng
                 if (emailInput.value.trim() === '') {
@@ -326,8 +328,7 @@
                         notification_err.style.display = 'none';
                     }, 10000);
                 } 
-                else {
-                    var addButton = document.getElementById("add");           
+                else {                               
                     addButton.type = "submit";
                 }
             }
@@ -340,6 +341,28 @@
                 notification_tb.style.display = "none";
                 notification_err.style.display = "none";
             }
+        </script>
+        <!--Script mua ngay-->
+        <script>
+            document.querySelectorAll('#buy').forEach((button) => {
+            button.addEventListener('click', (e) => {
+                const endpoint = `/thanhtoan1`;
+                const masp = document.querySelector('#masp').value;
+                const sl = document.querySelector('#so').value;
+
+                // Gửi yêu cầu DELETE đến server
+                fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ mail: '', masp: masp, sl: sl }),
+                })
+                .then(response => response.json())
+                .then(data => window.location.href = data.redirect)
+                .catch(err => console.log(err));
+            });
+            });
         </script>
 
         <!--footer-->

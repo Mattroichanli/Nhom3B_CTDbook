@@ -22,7 +22,7 @@
                 </div>
             <% } else {%>
                 <% if (sps.length > 0) { %>
-                    <form action="/cart" method="POST" class="cart_form">
+                    <form action="/giohang" method="POST" class="cart_form">
                         <table class="cart_table">
                             <thead class="cart_row cart_header-lables">
                                 <tr>
@@ -41,9 +41,9 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a class="h4" href="/thongtin.html"><%= sp.tensach %></a>
+                                            <a class="h4" href="/main/<%= sp.id%>"><%= sp.tensach %></a>
                                             Khuyến mãi: CTDDEAL - Giảm vô thời hạn 10% cho toàn bộ Sách <br>
-                                            <a class="cart_remove" href="/thongtin.html">Xóa</a>
+                                            <a class="cart_remove" data-doc="<%= sp.masp %>">Xóa</a>                                            
                                         </td>
                                         <td data-label="Đơn giá">
                                             <span class="dongia" id="dongia<%=sp.masp%>" ><%= sp.giagiam %></span>
@@ -51,7 +51,7 @@
                                         <td data-label="Số lượng" data-max="0">
                                             <div class="sl_box">
                                                 <a class="sub" onclick="decreaseQuantity('<%=sp.masp%>')">&#8722;</a>
-                                                <input class="so" id="so<%=sp.masp%>" maxvalue="999" minvalue="1" align="center" value="<%= sp.sl %>">
+                                                <input class="so" id="so<%=sp.masp%>" name="<%=sp.masp%>" maxvalue="999" minvalue="1" align="center" value="<%= sp.sl %>">
                                                 <a class="add" onclick="increaseQuantity('<%=sp.masp%>')">&#43;</a>
                                             </div>
                                         </td>
@@ -72,10 +72,6 @@
                             <% }) %>
                         </table>
                         <div class="grid cart_row">
-                            <div class="grid_item left">
-                                <label for="ghichu">Ghi chú</label>
-                                <textarea name="note" class="input-full" id="ghichu"></textarea>
-                            </div>
                             <div class="grid_item text-right right">
                                 <p>
                                     <span class="cart_subtotal-title">Tạm tính</span>
@@ -94,8 +90,8 @@
                                         document.getElementById("tamtinh").innerText = total;
                                     </script>
                                 </p>
-                                <button type="submit" name="update" class="btn-cart">Cập nhật</button>
-                                <button type="submit" name="checkout" class="btn-cart">Thanh toán</button>
+                                <button type="submit" class="btn-cart">Cập nhật</button>
+                                <button type="button"class="btn-cart" onclick="location.href='/thanhtoan'">Thanh toán</button>
                             </div>
                         </div>
                     </form>    
@@ -120,6 +116,27 @@
                 inputElement.value = currentValue - 1;
               }
             }
+        </script>
+        <!--Script xóa sp-->
+        <script>
+            // Sử dụng querySelectorAll để lấy tất cả các phần tử có class là 'cart_remove'
+            document.querySelectorAll('.cart_remove').forEach((button) => {
+            // Thêm sự kiện click cho mỗi nút xóa
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Lấy giá trị data-doc từ thuộc tính dữ liệu
+                const docId = button.dataset.doc;
+                const endpoint = `/giohang/${docId}`;
+
+                // Gửi yêu cầu DELETE đến server
+                fetch(endpoint, {
+                method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => window.location.href = data.redirect)
+                .catch(err => console.log(err));
+            });
+            });
         </script>
 
         <!--footer-->

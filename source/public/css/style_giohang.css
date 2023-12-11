@@ -199,7 +199,7 @@ img {
 }
 .grid_item {
     box-sizing: border-box;
-    float: left;
+    float: right;
     min-height: 1px;
     padding-left: 30px;
     vertical-align: top;
@@ -235,7 +235,6 @@ p {
 
     /*h3*/
     font-size: 1.21em;
-    display: block;
     font-family: Roboto;
     font-weight: 700;
     line-height: 1.4;

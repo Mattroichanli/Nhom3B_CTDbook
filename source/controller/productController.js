@@ -1,8 +1,11 @@
 const SP = require('../model/ttsp');
 const Cart = require('../model/giohang');
+const Don = require('../model/donhang');
+const Ma = require('../model/magiamgia');
 const { userController, setKh, getKh, setMail, getMail} = require('./userController');
 
 let err = ''
+let key = '', muangay = true; /*giohang*/
 
 const productController = {
     async sachmoi(req, res) {
@@ -154,42 +157,60 @@ const productController = {
           });
     },
 
-    /*-----Giỏ hàng-----*/
+    /*-----Giỏ hàng-----*/    
     async themgio(req, res) {
-      const sl = parseInt(req.body.sl, 10);
-      const filter = { mail: req.body.mail, masp: req.body.masp};
-
-      Cart.findOne(filter)
-      .then(result => {
-        if (result != null)
-        {
-          Cart.findOneAndUpdate(filter, {sl: result.sl+sl}, { new: true })
-          .then(updatedRecord => { 
-              err = 'No';           
-              res.redirect(`/main/${req.body.id}`);
-          })
-          .catch(err => {
-            err = 'Yes';
-            res.redirect(`/main/${req.body.id}`);
-          });
-        }
-        else
-        {
-          const cart = new Cart({ mail: req.body.mail, masp: req.body.masp, sl: req.body.sl});            
+      function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      const mail = getMail();
+      key = getRandomNumber(1, 1000000000000);
+      console.log(key);
+      if (mail == '') {
+        const cart = new Cart({ mail: 'no'+ key, masp: req.body.masp, sl: req.body.sl});            
           cart.save()
-            .then(savedCart => {
-              err = 'No';             
-              res.redirect(`/main/${req.body.id}`);
+            .then(savedCart => {    
+              res.redirect('/thanhtoan');
+            })
+            .catch(err => {
+              console.log(err);
+            });
+      } 
+      else {
+        const sl = parseInt(req.body.sl, 10);
+        const filter = { mail: req.body.mail, masp: req.body.masp};
+
+        Cart.findOne(filter)
+        .then(result => {
+          if (result != null)
+          {
+            Cart.findOneAndUpdate(filter, {sl: result.sl+sl}, { new: true })
+            .then(updatedRecord => { 
+                err = 'No';           
+                res.redirect(`/main/${req.body.id}`);
             })
             .catch(err => {
               err = 'Yes';
               res.redirect(`/main/${req.body.id}`);
             });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+          }
+          else
+          {
+            const cart = new Cart({ mail: req.body.mail, masp: req.body.masp, sl: req.body.sl});            
+            cart.save()
+              .then(savedCart => {
+                err = 'No';             
+                res.redirect(`/main/${req.body.id}`);
+              })
+              .catch(err => {
+                err = 'Yes';
+                res.redirect(`/main/${req.body.id}`);
+              });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      }  
     }, 
     async giohang(req, res) {
       const mail = getMail();
@@ -217,7 +238,150 @@ const productController = {
           console.log(err);
         });
       }          
-  },
+    },
+    async xoasp(req, res) {
+      const masp = req.params.masp;
+      const mail = getMail();
+
+      Cart.findOneAndDelete({mail: mail, masp: masp})
+      .then(result => {
+        res.json({ redirect: '/giohang' });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    },
+    async capnhatgio(req, res) {
+      const mail = getMail();
+      const cartData = req.body;
+
+      // Duyệt qua từng sản phẩm trong cartData
+      Object.keys(cartData).forEach(async masp => {
+        const soluong = parseInt(cartData[masp]);
+
+        // Cập nhật số lượng trong cơ sở dữ liệu
+        try {
+          await Cart.findOneAndUpdate({mail, masp}, { sl: soluong },  { new: true })
+          .then(updatedRecord => { 
+            res.redirect('/giohang');
+          });
+        } catch (error) {
+          console.error(`Lỗi khi cập nhật số lượng cho sản phẩm ${masp}: ${error}`);
+        }
+      });
+    },    
+    async muangay(req, res) {
+      muangay = true;
+      function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      const mail = getMail();
+      key = getRandomNumber(1, 1000000000000);
+      const cart = new Cart({ mail: 'no'+ key, masp: req.body.masp, sl: req.body.sl});            
+        cart.save()
+          .then(savedCart => {    
+            res.json({ redirect: '/thanhtoan' });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+    },    
+    async magiamgia(req, res) {
+      Ma.findOne({ma: req.body.ma})
+        .then(result => {
+            if (result != null){
+              res.json({ thongbao: 'ok', phantram: result.phantram });
+            } else {
+              res.json({ thongbao: 'no' });
+            }          
+          })
+          .catch(err => {
+            console.log(err);
+          });
+    }, 
+    async thanhtoan(req, res) {
+      const mail = getMail();
+      if (muangay) {
+        err = '';
+        console.log(err);
+        Cart.find({mail: 'no'+key})
+            .then(result => {
+              return Promise.all(result.map(async r => {
+                // Thực hiện cuộc gọi để lấy thông tin sản phẩm và giữ lại thông tin số lượng
+                const infoSP = await SP.findOne({ masp: r.masp });
+                const infoFull = { ...infoSP.toObject(), sl: r.sl };
+                return infoFull;
+              }));
+            })
+            .then(resultsArray => {
+              allSP = resultsArray;
+              res.render('thanhtoan1', { sps: allSP, title: 'Thanh toán', err: err, kh: getKh()});
+              muangay = false;
+              err = '';
+              return Cart.findOneAndDelete({mail: 'no'+key});
+            })
+            .catch(err => {
+              console.log(err);
+            });       
+      } 
+      else {
+        Cart.find({mail: mail})
+        .then(result => {
+          err = 'Mail'; /*để hiển thị Login? */
+          if (result != null)
+          {
+            let allSP = [];
+            Cart.find({mail: mail})
+            .then(result => {
+              return Promise.all(result.map(async r => {
+                // Thực hiện cuộc gọi để lấy thông tin sản phẩm và giữ lại thông tin số lượng
+                const infoSP = await SP.findOne({ masp: r.masp });
+                const infoFull = { ...infoSP.toObject(), sl: r.sl };
+                return infoFull;
+              }));
+            })
+            .then(resultsArray => {
+              allSP = resultsArray;
+              res.render('thanhtoan1', { sps: allSP, title: 'Thanh toán', err: err, kh: getKh()});
+              err = '';
+            })
+            .catch(err => {
+              console.log(err);
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      }  
+    },
+    async thanhtoan2(req, res) {
+      var ship = '';
+      if (req.body.tinh == "HCM")
+        ship = "25.000 đ";
+      else
+        ship = "35.000 đ";
+
+      const masp = Object.keys(req.body).filter(key => !['ma', 'tong', 'hoten', 'mail', 'sdt', 'diachi', 'tinh', 'huyen', 'xa'].includes(key));
+      const sl = masp.map(maspKey => req.body[maspKey]);
+      
+      const don = new Don({
+        mail: req.body.mail,
+        hoten: req.body.hoten,
+        sdt: req.body.sdt,
+        diachi: req.body.diachi + ", " + req.body.xa + ", " + req.body.huyen + ", " + req.body.tinh,
+        tongtien: req.body.tong,
+        sanphams: masp,
+        sl: sl,
+        ma: req.body.ma,
+        ship: ship,
+      })           
+      don.save();
+      res.redirect('/thanhtoan2');
+    },
+    async pttt(req, res) {      
+      res.render('thanhtoan2', {title: 'Thanh toán', kh: getKh()});
+    },
 }
 
 module.exports = productController;

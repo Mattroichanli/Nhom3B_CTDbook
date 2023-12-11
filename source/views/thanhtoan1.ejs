@@ -9,38 +9,54 @@
         <%- include("./partials/toolbar.ejs") %>
 
         <!--  -->
-        <div class="pay">
+        <form action="/thanhtoan2" method="post" class="pay" id="form_tt">
             <div class="sidebar">
-                <div class="sidebar-product">
-                    <table class="product-table">
-                        <tr class="product-item">
-                            <td class="product-img">
-                                <div class="product-thumbnail">
-                                    <div class="product-thumbnail-con">
-                                        <img class="product-thumbnail-img" alt="Bố ngồi cùng con nhé!" src="/image/Logo.png"> 
-                                    </div>
-                                    <span class="product-sl">1</span>
-                                </div>
-                            </td>
-                            <td class="product-ten">
-                                <span class="tensp">Bố ngồi cùng con nhé!</span>
-                            </td>
-                            <td class="product-price">
-                                <span class="giasp">60.000đ</span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <% if (sps.length > 0) { %>
+                    <% sps.forEach(sp => { %>
+                        <div class="sidebar-product">
+                            <table class="product-table">
+                                <tr class="product-item">
+                                    <td class="product-img">
+                                        <div class="product-thumbnail">
+                                            <div class="product-thumbnail-con">
+                                                <img class="product-thumbnail-img" alt="<%= sp.tensach%>" src="<%= sp.img_small2%>"> 
+                                            </div>
+                                            <span class="product-sl" id="so<%= sp.masp%>"><%= sp.sl%></span>
+                                        </div>
+                                    </td>
+                                    <td class="product-ten">
+                                        <span class="tensp"><%= sp.tensach%></span>
+                                    </td>
+                                    <td class="product-price">
+                                        <span class="giasp" id="tong<%= sp.masp%>"></span>
+                                        <input type="hidden" id="dongia<%= sp.masp%>" value="<%= sp.giagiam%>">
+                                        <input type="hidden" id="ttsp" name="<%= sp.masp%>" value="<%= sp.sl%>">
+                                    </td>
+
+                                    <!--Tính tổng tiền mỗi sp-->
+                                    <script>
+                                        var dongia = document.querySelector('#dongia<%=sp.masp%>').value;
+                                        dongia = parseFloat(dongia.replace(/[^\d.]/g, ''));
+                                        var sl = document.querySelector('#so<%=sp.masp%>').innerText;
+                                        sl = parseInt(sl);
+                                        var tong = dongia * 1000 * sl;
+                                        tong = tong.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                                        document.querySelector('#tong<%=sp.masp%>').innerText = tong;
+                                    </script>                                    
+                                </tr>
+                            </table>
+                        </div>
+                    <% }) %>
                 <div class="sidebar-discount">
-                    <form id="form_discount_add" method="POST">
-                        <input type="text" placeholder="Mã giảm giá" name="discount.code" class="input_field">
-                        <button type="submit" id="discount_btn">Sử dụng</button>
-                    </form>
+                    <div id="discount">
+                        <input type="text" placeholder="Mã giảm giá" id="code" name="ma" class="input_field">
+                        <button type="button" id="discount_btn">Sử dụng</button>
+                    </div>
                 </div>
-                <div class="sidebar-login">
+                <div class="sidebar-login" id="login">
                     <div class="login">
                         <h2>Khách hàng thân thiết</h2>
-                        <button type="button" href="./thanhtoan.html" id="login_btn">Login</button>
+                        <button type="button" onclick="location.href='/login'" id="login_btn">Login</button>
                     </div>
                 </div>
                 <div class="sidebar-total">
@@ -48,7 +64,7 @@
                         <tr class="total-line total-line-subtotal">
                             <td class="total-line-name">Tạm tính</td>
                             <td class="total-line-price">
-                                <span class="order-summary-emphasis">58,500₫</span>
+                                <span class="order-summary-emphasis" id="tamtinh"></span>
                             </td>
                         </tr>
                         <tr class="total-line total-line-shipping">
@@ -64,20 +80,44 @@
                                 </td>
                                 <td class="total-line-name payment-due">
                                     <span class="payment-due-currency">VND</span>
-                                    <span class="payment-due-price">58,500₫</span>
+                                    <span class="payment-due-price" id="tong"></span>
+                                    <input type="hidden" name="tong" id="laytong" value="">
+                                    <input type="hidden" id="phantram" value="0">
                                 </td>
                             </tr>
                         </tfoot>
                     </table>
-                </div>
-            </div>
+                </div>                
+                <!--Tính tổng tất cả-->
+                <script>
+                    var totalElements = document.querySelectorAll('.giasp');
+                    var total = 0;
+                    totalElements.forEach(function(element) {
+                        // Lấy giá trị tổng tiền từ từng sản phẩm
+                        var tong = element.innerText;
+                        tong = parseInt(tong.replace(/[^\d]/g, ''), 10);
+                        // Cộng vào tổng tiền chung
+                        total += tong;
+                    });
+                    var tong = total;
+                    total = total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                    document.querySelector("#tamtinh").innerText = total;
+                    
+                    var phantram = document.querySelector('#phantram').value;
+                    phantram = parseInt(phantram.replace(/[^\d]/g, ''), 10);                    
+                    tong = tong * (100 - phantram)/100;
+                    tong = tong.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                    document.querySelector("#tong").innerText = tong;
+                </script>            
+                <% } %>  
+            </div>                 
             <div class="main">
                 <div class="main-header">
                     <a href="/" class="logo">
                         <h1 class="logo-text">Tiệm sách CTD Books</h1>
                     </a>
                     <ol class="url">
-                        <li class="url-item"> <a href="index.html" title="Giỏ hàng">Giỏ hàng</a> <span>&#62;</span> </li>
+                        <li class="url-item"> <a onclick="location.href='/giohang'" title="Giỏ hàng">Giỏ hàng</a> <span>&#62;</span> </li>
                         <li class="url-item item-current"> Thông tin vận chuyển <span>&#62;</span> </li>
                         <li class="url-item"> Thanh toán </li>
                     </ol>
@@ -85,27 +125,120 @@
                 <div class="main-content">
                     <div class="step-sections" step="1">
                         <h2 class="section-title">Thông tin thanh toán</h2>
-                        <p class="section-content-text">
+                        <p class="section-content-text" id="login">
                             Bạn đã có tài khoản?
-                            <a href="index.html">Đăng nhập</a>
+                            <a onclick="location.href='/login'">Đăng nhập</a>
                         </p>
-                        <div class="input"><input type="text" placeholder="Họ và tên" name="ten" class="input_field"></div>
-                        <div class="input1"><input type="email" placeholder="Email" name="mail" class="input_field"></div>
-                        <div class="input2"><input type="tel" maxlength="15" placeholder="Điện thoại" name="phone" class="input_field"></div>
-                        <div class="input"><input type="text"placeholder="Địa chỉ" name="address" class="input_field"></div>
-                        <div class="input2"><input type="text" placeholder="Tỉnh" name="tinh" class="input_field"></div>
-                        <div class="input2"><input type="text" placeholder="Quận/Huyện" name="quanhuyen" class="input_field"></div>
-                        <div class="input2"><input type="text" placeholder="Phường/Xã" name="phuõnga" class="input_field"></div>
+                        <div class="input"><input type="text" placeholder="Họ và tên" name="hoten" class="input_field"  required></div>
+                        <div class="input1"><input type="email" placeholder="Email" name="mail" class="input_field"  required></div>
+                        <div class="input2"><input type="tel" maxlength="15" placeholder="Điện thoại" name="sdt" class="input_field"  required></div>
+                        <div class="input"><input type="text"placeholder="Địa chỉ" name="diachi" class="input_field"  required></div>
+                        <div class="input2"><input type="text" placeholder="Tỉnh" name="tinh" class="input_field"  required></div>
+                        <div class="input2"><input type="text" placeholder="Quận/Huyện" name="huyen" class="input_field"  required></div>
+                        <div class="input2"><input type="text" placeholder="Phường/Xã" name="xa" class="input_field"  required></div>
                         </div>
                 </div>
                 <div class="step-footer">
                     <button type="submit" id="thanhtoan_btn">Thanh toán ngay</button>
-                    <a class="step-footer-previous-link" href="giohang.html">Giỏ hàng</a>
+                    <a class="step-footer-previous-link" onclick="location.href='/giohang'">Giỏ hàng</a>
                 </div>
                 </div>
             </div>
-        </div>
+        </form>
+        <!--Script đã có tk hay chưa-->
+        <% if (err == 'Mail') { %>
+            <script>
+                var loginElements = document.querySelectorAll('#login');
 
+                // Lặp qua tất cả các phần tử có ID là "login"
+                loginElements.forEach(function(loginElement) {
+                    // Thực hiện các hành động mong muốn với mỗi phần tử
+                    loginElement.style.display = 'none';
+                });
+            </script>
+        <% } else {%>
+            <script>
+                var loginElements = document.querySelectorAll('#login');
+
+                // Lặp qua tất cả các phần tử có ID là "login"
+                loginElements.forEach(function(loginElement) {
+                    // Thực hiện các hành động mong muốn với mỗi phần tử
+                    loginElement.style.display = 'block';
+                });
+            </script>
+        <% } %>
+        <!--Thông báo-->
+        <div id="notification-err" style="display: none;">
+            <div class="thongbao">
+                <div class="thongbao-title">
+                    <p>Rất tiếc mã không hợp lệ.</p>
+                    <button class="close" onclick="closeNotification()"><img src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg?q="></button>
+                </div>                
+                <img src="https://static.vecteezy.com/system/resources/previews/017/178/032/original/round-cross-mark-symbol-with-transparent-background-free-png.png">
+            </div>
+        </div>
+        <div id="notification-tc" style="display: none;">
+            <div class="thongbao">
+                <div class="thongbao-title">
+                    <p>Hợp lệ. Chúc mừng bạn.</p>
+                    <button class="close" onclick="closeNotification()"><img src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_delete_gray.svg?q="></button>
+                </div>                
+                <img src="https://static.vecteezy.com/system/resources/previews/017/177/933/non_2x/round-check-mark-symbol-with-transparent-background-free-png.png">
+            </div>
+        </div>
+        <!--Script ma giam gia-->
+        <script>
+            document.querySelectorAll('#discount_btn').forEach((button) => {
+            button.addEventListener('click', (e) => {
+                const endpoint = `/thanhtoan`;
+
+                const ma = document.querySelector('#code').value;
+                // Gửi yêu cầu DELETE đến server
+                fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ma: ma}),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.thongbao != 'ok'){
+                        var notification_err = document.getElementById("notification-err");
+                        notification_err.style.display = "flex";
+                        document.querySelector('#code').value = '';
+                        
+                    } else {
+                        var notification_tc = document.getElementById("notification-tc");
+                        notification_tc.style.display = "flex";
+                        
+                        var phantram = data.phantram;
+                        var tong = document.querySelector("#tong").innerText;
+                        tong = parseInt(tong.replace(/[^\d]/g, ''), 10);                   
+                        tong = tong * (100 - phantram)/100;
+                        tong = tong.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                        document.querySelector("#tong").innerText = tong;
+                    }
+                })
+                .catch(err => console.log(err));
+            });
+            });
+            function closeNotification() {
+                var notification_err = document.getElementById("notification-err");
+                notification_err.style.display = "none";
+                var notification_tc = document.getElementById("notification-tc");
+                notification_tc.style.display = "none";
+            }
+        </script>
+        <!--Script lấy tổng tiền-->
+        <script>
+            document.getElementById('form_tt').addEventListener('submit', function(event) {
+              // Lấy giá trị từ tong
+              const tong = document.getElementById('tong').innerText;
+              // Đặt giá trị vào trường ẩn
+              document.getElementById('laytong').value = tong;
+            });
+          </script>
         <!--footer-->
         <%- include("./partials/footer.ejs") %>
     </body>
