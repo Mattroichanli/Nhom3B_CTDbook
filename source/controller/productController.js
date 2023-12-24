@@ -2,6 +2,7 @@ const SP = require('../model/ttsp');
 const Cart = require('../model/giohang');
 const Don = require('../model/donhang');
 const Ma = require('../model/magiamgia');
+const Love = require('../model/yeuthich');
 const { userController, setKh, getKh, setMail, getMail} = require('./userController');
 
 let err = ''
@@ -149,15 +150,18 @@ const productController = {
         const url = req.params.id; 
         SP.findOne({id: url})
         .then(result => {
-            res.render('tt', {sp: result, title: result.tensach , err: err, kh: getKh(), mail: getMail()});
-            err = '';
+            SP.find({danhmuc: result.danhmuc})
+            .then(splq => {
+              res.render('tt', {sp: result, splq: splq, title: result.tensach , err: err, kh: getKh(), mail: getMail()});
+              err = '';
+            })
           })
           .catch(err => {
             console.log(err);
           });
     },
 
-    /*-----Giỏ hàng-----*/    
+    /*-----Giỏ hàng-----*/ 
     async themgio(req, res) {
       function getRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -381,7 +385,85 @@ const productController = {
     },
     async pttt(req, res) {      
       res.render('thanhtoan2', {title: 'Thanh toán', kh: getKh()});
+    },    
+
+    /*Yêu thích*/
+    async yeuthich(req, res) {
+      const mail = getMail();
+      if (mail == '') {
+        err = 'No Mail';
+        res.render('yeuthich', {title: 'Yêu thích', err: err, kh: getKh()});
+        err = '';
+      } 
+      else {
+        let allSP = [];
+        Love.find({mail: mail})
+        .then(result => {
+          return Promise.all(result.map(async r => {
+            // Thực hiện cuộc gọi để lấy thông tin sản phẩm
+            const infoSP = await SP.findOne({ masp: r.masp });
+            return infoSP.toObject();
+          }));
+        })
+        .then(resultsArray => {
+          allSP = resultsArray;
+          res.render('yeuthich', { sps: allSP, title: 'Yêu thích', err: err, kh: getKh()});
+        })  
+        .catch(err => {
+          console.log(err);
+        });
+      }     
+         
+    },    
+    async boyeuthich(req, res) {
+      const masp = req.params.masp; 
+      const mail = getMail();
+
+      Love.findOneAndDelete({mail: mail, masp: masp})      
+      .catch(err => {
+        console.log(err);
+      }); 
+    }, 
+    async themyeuthich(req, res) {
+      const love = new Love({ mail: req.body.mail, masp: req.body.masp});            
+  
+      love.save()
+      .catch(err => {
+        console.log(err);
+      }); 
     },
+    async ktrayeuthich(req, res) {
+      const masp = req.params.masp; 
+      const mail = getMail();
+      const filter = { mail: mail, masp: masp};
+
+      Love.findOne(filter)
+      .then(result => {
+        if (result != null)
+        {
+          res.json({thongbao: 'loved'});
+        }
+        else
+        {
+          res.json({thongbao: 'noloved'});
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });       
+    }, 
+    async xoaspyt(req, res) {
+      const masp = req.params.masp; 
+      const mail = getMail();
+
+      Love.findOneAndDelete({mail: mail, masp: masp})  
+      .then(result => {
+        res.json({redirect: '/yeuthich'});
+      })    
+      .catch(err => {
+        console.log(err);
+      }); 
+    },    
 }
 
 module.exports = productController;

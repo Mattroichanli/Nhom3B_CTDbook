@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<%- include("./partials/head.ejs") %>
+<link rel="stylesheet" href="/css/style_giohang.css" />
+    <body>
+        scroll-padding-top: 123px;
+        <div class="desktop"><div class="div"></div></div>
+        <!-- toolbar -->
+        <%- include("./partials/toolbar.ejs") %>
+
+        <!--  -->
+        <div class="cart">
+            <h1>Yêu thích</h1>
+            <% if (err == 'No Mail') {%>
+                <div class="cart-ui-content">
+                    <div class="cart-emty">
+                        <div class="icon-emty">
+                            <img src="https://cdn-icons-png.flaticon.com/512/4379/4379561.png">
+                        </div>
+                        <p><a onclick="location.href='/login'">Đăng nhập</a> hoặc <a onclick="location.href='/signup'">Đăng kí</a> ngay để thỏa thích lựa chọn.</p>
+                    </div>
+                </div>
+            <% } else {%>
+                <% if (sps.length > 0) { %>
+                    <div class="cart_form">
+                        <table class="cart_table">
+                            <thead class="cart_row cart_header-lables">
+                                <tr>
+                                    <th colspan="2" class="text-center">Thông tin Sản phẩm</th>
+                                    <th class="text-center">Mô tả</th>
+                                    <th class="text-center">Xóa</th>
+                                </tr>
+                            </thead>
+                            <% sps.forEach(sp => { %>
+                                <tbody>
+                                    <tr class="cart_row table_section">
+                                        <td data-lable="Sản phẩm" style="width: 140px;">
+                                            <a class="cart_image" href="/main/<%= sp.id%>" style="width: 50%;">
+                                                <img src="<%= sp.img_small2 %>" alt="<%= sp.tensach %>">
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="h4" href="/main/<%= sp.id%>"><%= sp.tensach %></a>
+                                            <span class="dongia gia" id="dongia<%=sp.masp%>" ><%= sp.giagiam %></span>                                       
+                                        </td>
+                                        <td style="width: 650px;">
+                                            <p class="dongia mota" id="dongia<%=sp.masp%>" ><%- sp.mota %></p>
+                                        </td>
+                                        <td  class="text-center">                                            
+                                            <a class="cart_remove" data-doc="<%= sp.masp %>">Xóa</a>     
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            <% }) %>
+                        </table>
+                    </div> 
+                    <p style="border-bottom: 1px solid #c1c1c1;"></p>   
+                <% } %>
+            <% } %>
+        </div>
+        
+        <!--Script xóa sp-->
+        <script>
+            // Sử dụng querySelectorAll để lấy tất cả các phần tử có class là 'cart_remove'
+            document.querySelectorAll('.cart_remove').forEach((button) => {
+            // Thêm sự kiện click cho mỗi nút xóa
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Lấy giá trị data-doc từ thuộc tính dữ liệu
+                const docId = button.dataset.doc;
+                const endpoint = `/boyeuthich/${docId}`;
+
+                // Gửi yêu cầu DELETE đến server
+                fetch(endpoint, {
+                method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => window.location.href = data.redirect)
+                .catch(err => console.log(err));
+            });
+            });
+        </script>
+
+        <!--footer-->
+        <%- include("./partials/footer.ejs") %>
+    </body>
+</html>

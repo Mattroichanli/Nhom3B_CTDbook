@@ -2,7 +2,7 @@
 <html>
 <%- include("./partials/head.ejs") %>
 <link rel="stylesheet" href="/css/style_thongtin.css" />
-    <body>
+    <body onload="Love()">
         scroll-padding-top: 123px;
         <div class="desktop"><div class="div"></div></div>
         <!--form bắt đầu từ đây-->
@@ -54,9 +54,9 @@
                     });
                 }
             </script>
-            <div id="thong-bao">
-                <button type="button" style="background: url(/image/toolbar_section/Notification.png)"></button>
-                <p>Thông báo</p>
+            <div id="love">
+                <button type="button" onclick="location.href='/yeuthich'"></button>
+                <p style="padding-left: 5px;">Yêu thích</p>
             </div>
             <div id="gio-hang">
                 <button type="button" style="background: url(/image/toolbar_section/Shopping-Cart.png)" onclick="location.href='/giohang'"></button>
@@ -132,6 +132,7 @@
                             </div>
                         </div>
                         <div class="product_detail" >
+                            <button type="button" title="Yêu thích" id="love-btn" data-doc="<%= sp.masp %>"></button>
                             <h1><%= title %></h1>
                             <div class="gia">
                                 <span class="giagiam"><%= sp.giagiam %></span>
@@ -258,6 +259,31 @@
                     </div>
                 </div>  
             </section>
+            <section class="Sach_items">
+                <div class="splq">
+                    <div class="header2" style="margin: 20px 0 30px">
+                        <h3>SẢN PHẨM LIÊN QUAN</h3>
+                    </div>
+                    <div class="items_lq">
+                        <% let count = 0; %>
+                        <% if (splq.length > 0) { %>
+                            <% splq.forEach(lq => { %>                                
+                                <% if (lq.id != sp.id && count < 5) { %>
+                                    <div class="item">
+                                        <img src=<%= lq.img_small2 %> onclick="location.href='/main/<%= lq.id %>'" alt="">
+                                        <ul class="text">
+                                            <li class="ten-sach" onclick="location.href='/main/<%= lq.id %>'"><%= lq.tensach %></li>
+                                            <li class="gia-tien"><%= lq.giagiam %></li>
+                                            <li class="gia-goc"><%= lq.giagoc %></li>
+                                        </ul>
+                                    </div>
+                                    <% count++; %>
+                                <% } %>
+                            <% }) %>    
+                        <% } %>
+                    </div>
+                </div>
+            </section>
         </section>
         
         </form>
@@ -364,7 +390,102 @@
             });
             });
         </script>
+        <!--Script yêu thích-->
+        <script>
+            const loveBtn = document.getElementById('love-btn');
+            let isLoved = false;    
 
+            var emailInput = document.getElementById("mail");
+            var notification_err = document.getElementById("notification-err");
+
+            loveBtn.addEventListener('click', () => {
+                if (emailInput.value.trim() === '') {
+                    notification_err.style.display = "flex";
+                    setTimeout(function () {
+                        notification_err.style.display = 'none';
+                    }, 10000);
+                } 
+                else {                               
+                    if (isLoved) {
+                        // Thực hiện DELETE request
+                        deleteBtn();
+                        loveBtn.style.backgroundImage = 'url(/image/toolbar_section/heart0.png)';
+                    } else {
+                        // Thực hiện POST request
+                        postBtn();
+                        loveBtn.style.backgroundImage = 'url(/image/toolbar_section/heart1.png)';
+                    }
+                    
+                    // Đảo ngược trạng thái isLoved
+                    isLoved = !isLoved;
+                }                
+            });
+
+            const docId = loveBtn.dataset.doc;
+            const endpoint = `/yeuthich/${docId}`;
+            
+            function deleteBtn() {
+                fetch(endpoint, {
+                    method: 'DELETE',
+                })
+                .catch(err => console.log(err));
+            }
+
+            function postBtn() {
+                fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ mail: emailInput.value, masp: docId}),
+                })
+                .catch(err => console.log(err));
+            }  
+
+            function getBtn() {
+                fetch(endpoint, {
+                    method: 'GET',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.thongbao == "loved")
+                    {
+                        isLoved = true;
+                        loveBtn.style.backgroundImage = 'url(/image/toolbar_section/heart1.png)';
+                    }
+                    else
+                    {
+                        isLoved = false;
+                        loveBtn.style.backgroundImage = 'url(/image/toolbar_section/heart0.png)';
+                    }
+                })
+                .catch(err => console.log(err));
+            }  
+
+            //Check Love or Not
+            document.addEventListener('DOMContentLoaded', async () => {
+                if (emailInput.value.trim() !== '') {
+                    getBtn();
+                } 
+            });          
+        </script>
+        <!--Script xem thêm - chưa xong-->
+        <script>
+            const showMoreBtn = document.getElementById('more');
+            const hiddenContent = document.querySelector('.ct_ttsp');
+
+            showMoreBtn.addEventListener('click', function () {
+                // Hiển thị đoạn văn bản ẩn
+                hiddenContent.style.display = 'block';
+
+                // Tăng chiều cao của div chứa để hiển thị toàn bộ nội dung
+                //contentContainer.style.maxHeight = hiddenContent.clientHeight + 'px';
+
+                // Ẩn nút "Xem thêm" sau khi nhấn
+                showMoreBtn.style.display = 'none';
+            });
+        </script>
+        
         <!--footer-->
         <%- include("./partials/footer.ejs") %>
     </body>

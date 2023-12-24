@@ -374,6 +374,13 @@ tbody
 {
     margin-bottom: 10px;
     font-size: 17px;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    word-wrap: break-word; /* Thêm word-wrap để ngắt dòng */
+    display: -webkit-box;
+    -webkit-line-clamp: 11; /* Số dòng tối đa trước khi sử dụng ellipsis */
+    -webkit-box-orient: vertical;
 }
 .xemthem
 {
@@ -482,4 +489,34 @@ tbody
 {
     width: 100px;
     height: 100px;
+}
+
+/*Yêu thích*/
+#love-btn
+{
+    width: 57px;
+    height: 53px;
+    display: block;
+    cursor: pointer;
+    background-image: url(/image/toolbar_section/heart0.png);
+    background-position: center;
+    border: none;
+    float: right;
+}
+
+/*Sản phẩm liên quan*/
+.splq
+{
+    background-color: white;
+    height: 490px;
+    width: 1197px;
+    padding: 30px;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 5px 5px 0px #9a9e9f;
+}
+.items_lq
+{
+    display: flex;
+    justify-content: space-evenly;
 }

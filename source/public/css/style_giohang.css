@@ -123,7 +123,7 @@ a
 }
 .cart_image img {
     display: block;
-    max-width: 100%;
+    max-width: 140px;
     width: 215px;
 }
 img {
@@ -293,4 +293,24 @@ p {
 .cart-emty a
 {
     font-style: italic;
+}
+
+/*Yêu thích*/
+.mota 
+{
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: lighter;
+    word-wrap: break-word; /* Thêm word-wrap để ngắt dòng */
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* Số dòng tối đa trước khi sử dụng ellipsis */
+    -webkit-box-orient: vertical;
+}
+.gia 
+{
+    font-style: italic;
+    font-size: 25px;
 }

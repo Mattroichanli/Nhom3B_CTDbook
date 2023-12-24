@@ -66,6 +66,11 @@ connect().then( () => {
    app.post('/thanhtoan', productRoute) /*magiagia*/
    app.post('/thanhtoan2', productRoute) /*thanhtoan*/
    app.get('/thanhtoan2', productRoute) /*thanhtoan step2*/
+   app.get('/yeuthich', productRoute) 
+   app.delete('/yeuthich/:masp', productRoute)
+   app.post('/yeuthich/:masp', productRoute)
+   app.get('/yeuthich/:masp', productRoute)
+   app.delete('/boyeuthich/:masp', productRoute)
  }).catch((error) => {
    console.error(error);
  });

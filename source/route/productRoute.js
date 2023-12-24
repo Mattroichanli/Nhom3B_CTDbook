@@ -30,4 +30,10 @@ router.post("/thanhtoan", productController.magiamgia);
 router.post("/thanhtoan2", productController.thanhtoan2);
 router.get("/thanhtoan2", productController.pttt);
 
+router.get("/yeuthich", productController.yeuthich);
+router.delete("/yeuthich/:masp", productController.boyeuthich);
+router.post("/yeuthich/:masp", productController.themyeuthich);
+router.get("/yeuthich/:masp", productController.ktrayeuthich);
+router.delete("/boyeuthich/:masp", productController.xoaspyt); /*xóa 1 sp khỏi yêu thích tại yêu thích*/
+
 module.exports = router

@@ -20,7 +20,7 @@
       }
 }
 
-#thong-bao {
+#love {
     display: inline;
     flex-direction: column;
     width: 61px;
@@ -32,17 +32,19 @@
     top: 31px;
     left: 1082px;
 }
-#thong-bao button {
+#love button {
     position: fixed;
     width: 40px;
     height: 40px;
     top: 32px;
     left: 1091px;
-    background: url(image/toolbar_section/Notification.png);
     border: none;
     float: left;
+    background-size: cover;
+    background-image: url(/image/toolbar_section/love.png);
+    background-position: center;
 }
-#thong-bao p {
+#love p {
     position: fixed;
     width: fit-content;
     font-family: "Inter-Medium", Helvetica;
