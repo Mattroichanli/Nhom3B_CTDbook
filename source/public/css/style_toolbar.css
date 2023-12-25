@@ -1,5 +1,6 @@
 /*toolbar_section*/
 .box {
+    display: flex;
     position: fixed;
     width: 100%;
     height: 123px;
@@ -189,6 +190,10 @@ body{background-color: #e0ecfe;}
     top: 10px;
     left: 122px;
     object-fit: cover;
+}
+body {
+    margin: 0;
+    padding: 0;
 }
 .box .category {
     position: fixed;

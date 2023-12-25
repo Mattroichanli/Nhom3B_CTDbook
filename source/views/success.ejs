@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<%- include("./partials/head.ejs") %>
+<link rel="stylesheet" href="/css/style_giohang.css" />
+    <body>
+        scroll-padding-top: 123px;
+        <div class="desktop"><div class="div"></div></div>
+        <!-- toolbar -->
+        <%- include("./partials/toolbar.ejs") %>
+
+        <!--  -->
+        <div class="cart">
+            <h1>Thanh toán thành công</h1>
+                <div class="cart-ui-content">
+                    <div class="cart-emty">
+                        <div class="icon-emty">
+                            <img src="https://cdn-icons-png.flaticon.com/512/628/628555.png">
+                        </div>
+                        <p>Tiếp tục <a onclick="location.href='/main'">mua sắm</a> ngay nào !</p>
+                    </div>
+                </div>
+        </div>        
+        <!--footer-->
+        <%- include("./partials/footer.ejs") %>
+    </body>
+</html>

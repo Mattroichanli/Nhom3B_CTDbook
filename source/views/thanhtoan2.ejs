@@ -84,10 +84,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="step-footer">
-                    <button type="submit" id="thanhtoan_btn">Đặt hàng</button>
-                    <a class="step-footer-previous-link" onclick="location.href='/giohang'">Giỏ hàng</a>
-                </div>
+                <form action="/pay" method="post">
+                    <input type="hidden" name="madh" value=<%= madh%>>
+                    <div class="step-footer">
+                        <button type="submit" id="thanhtoan_btn">Đặt hàng</button>
+                        <a class="step-footer-previous-link" onclick="location.href='/giohang'">Giỏ hàng</a>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>

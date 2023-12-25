@@ -71,43 +71,12 @@ connect().then( () => {
    app.post('/yeuthich/:masp', productRoute)
    app.get('/yeuthich/:masp', productRoute)
    app.delete('/boyeuthich/:masp', productRoute)
+   /*pay*/
+   app.post('/pay', productRoute)
+   app.get('/success', productRoute)
+   app.get('/cancel', productRoute)
+
  }).catch((error) => {
    console.error(error);
  });
 
-
-//TEST
-const Cart = require('./model/giohang');
-const Don = require('./model/magiamgia');
-app.get('/try', async (req, res) => { 
-  const newDon = new Don({
-    ma: 'CT',
-    phantram: 10,
-    sl: 10,
-  });
-  
-  // Lưu đơn hàng vào cơ sở dữ liệu
-  newDon.save()
-    .then(savedDon => {
-      console.log('Đơn hàng đã được lưu:', savedDon);
-    })
-    .catch(error => {
-      console.error('Lỗi khi lưu đơn hàng:', error);
-    });
-});
-
-
-/*
-app.get('/giohang', (req, res) => {
-  res.render('giohang.ejs', {title: 'Giỏ hàng'});
-  err = '';
-});
-app.get('/thanhtoan1', (req, res) => {
-  res.render('thanhtoan1.ejs', {title: 'Thanh toán'});
-  err = '';
-});
-
-app.get('/thanhtoan2', (req, res) => {
-  res.render('thanhtoan2.ejs', {title: 'Thanh toán'});
-  err = '';
-});*/

@@ -5,6 +5,17 @@ const Ma = require('../model/magiamgia');
 const Love = require('../model/yeuthich');
 const { userController, setKh, getKh, setMail, getMail} = require('./userController');
 
+/*Thanh toán Paypal*/
+const paypal = require('paypal-rest-sdk');
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': 'AclY8fGUJqH6mj1dalk520ld_6Upn6Q6MEXLOfYOOgA1ck0xc2m8wC6inbgo28xvwqmW4Dwdwkz2M0WN',
+  'client_secret': 'EP3BnEXtanr2sq8WCNYSp3JB6YSyMaNsUxr9ztl-g7OPf5AmDBdXfqHT75x_ICpgVumIa7D3V2dcnkGe'
+});
+const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Types;
+let orderTotalUSD, madh;
+
 let err = ''
 let key = '', muangay = true; /*giohang*/
 
@@ -161,7 +172,7 @@ const productController = {
           });
     },
 
-    /*-----Giỏ hàng-----*/ 
+    /*-----Giỏ hàng + Thanh toán-----*/ 
     async themgio(req, res) {
       function getRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -379,13 +390,107 @@ const productController = {
         sl: sl,
         ma: req.body.ma,
         ship: ship,
+        payID: ''
       })           
-      don.save();
-      res.redirect('/thanhtoan2');
+      don.save().then(result => {
+        const madh = new ObjectId(result._id);
+        res.render('thanhtoan2', {title: 'Thanh toán', kh: getKh(), madh: madh.toString()});
+      })
     },
     async pttt(req, res) {      
       res.render('thanhtoan2', {title: 'Thanh toán', kh: getKh()});
-    },    
+    }, 
+    /*Paypal*/
+    async pay(req, res) {
+      var tongtien, ship;
+      madh = req.body.madh;
+      Don.findById(req.body.madh)
+      .then(result => {
+        /*Chuyển sang USD*/
+        tongtien = result.tongtien;
+        ship = result.ship;
+        const exchangeRate = 23;
+        const amountInVND = parseFloat(tongtien.replace(/[^\d.]/g, ''));
+        const shipInVND = parseFloat(ship.replace(/[^\d.]/g, ''));
+        var amountInUSD = amountInVND / exchangeRate;
+        var shipInUSD = shipInVND / exchangeRate;
+        amountInUSD = amountInUSD.toFixed(2);
+        shipInUSD = shipInUSD.toFixed(2);
+
+        orderTotalUSD = (parseFloat(amountInUSD) + parseFloat(shipInUSD)).toFixed(2);
+        /*Thông tin Thanh toán*/
+        const create_payment_json = {
+          "intent": "sale",
+          "payer": {
+              "payment_method": "paypal"
+          },
+          "redirect_urls": {
+              "return_url": "http://localhost:3000/success",
+              "cancel_url": "http://localhost:3000/cancel"
+          },
+          "transactions": [{
+              "item_list": {
+                  "items": [{
+                      "name": "Order ID: "+ req.body.madh,
+                      "price": amountInUSD,
+                      "currency": "USD",
+                      "quantity": 1
+                  },
+                    {
+                      "name": "Ship: ",
+                      "price": shipInUSD,
+                      "currency": "USD",
+                      "quantity": 1
+                    }]
+              },
+              "amount": {
+                  "currency": "USD",
+                  "total": (parseFloat(amountInUSD) + parseFloat(shipInUSD)).toFixed(2)
+              },
+          }]
+        }
+        paypal.payment.create(create_payment_json, function (error, payment) {
+          if (error) {
+              throw error;
+          } else {
+              for (let i = 0; i < payment.links.length; i++) {
+                  if (payment.links[i].rel === 'approval_url') {
+                      res.redirect(payment.links[i].href);
+                  }
+               }
+          }
+        });
+      })
+    },  
+    async success(req, res) {
+      const payerId = req.query.PayerID;
+      const paymentId = req.query.paymentId;
+
+      const execute_payment_json = {
+          "payer_id": payerId,
+          "transactions": [{
+              "amount": {
+                  "currency": "USD",
+                  "total": orderTotalUSD
+              }
+          }]
+      };
+      paypal.payment.execute(paymentId, execute_payment_json, function(error, payment) {
+        if (error) {
+            console.log(error.response);
+            throw error;
+        } else {
+            console.log(paymentId);
+            Don.findByIdAndUpdate(madh, {payID: paymentId}, { new: true })
+            .then(updatedRecord => {   
+                res.render('success', {title: 'Thành công', kh: getKh()});
+            })           
+        }
+      });
+    },
+    async cancel(req, res) {
+      res.send('Cancelled (Đơn hàng đã hủy)');
+    }, 
 
     /*Yêu thích*/
     async yeuthich(req, res) {

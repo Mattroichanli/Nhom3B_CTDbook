@@ -30,13 +30,13 @@ const donhangSchema = new Schema({
         type: String,
         required: true
     },
-    ma: {
-      type: String,
-      required: true,
-    },
     ship: {
       type: String,
       required: true,
+    },
+    payID: {
+      type: String,
+      required: false,
     },
   }, { timestamps: true });
   
